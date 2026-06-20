@@ -32,7 +32,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Project Management
 
 Linear Project:
-[https://linear.app/YOUR_WORKSPACE/project/YOUR_PROJECT_ID](https://linear.app/dashboar/project/dashboard-noerredal-00b021051dd5/issues?layout=board&ordering=priority&grouping=assignee&subGrouping=workflowState&showCompletedIssues=all&showSubIssues=true&showTriageIssues=true)
+https://linear.app/dashboar/project/dashboard-noerredal-00b021051dd5/overview
 
 ## Deploy on Vercel
 
