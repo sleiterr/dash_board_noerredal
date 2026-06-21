@@ -1,0 +1,48 @@
+@theme inline {
+    --font-body: var(--font-dm-sans);
+    --color-primary: var(--text-primary);
+
+    --color-secondary: #fff;
+    --color-tertiary: rgba(255, 255, 255, 0.6);
+    --color-quaternary: #A89B7A;
+
+    --color-sidebar: #2D4A35;
+    --color-side-bar-icon: rgba(255, 255, 255, 0.6);
+    --color-hover-link: rgba(255, 255, 255, 0.2);
+
+    --color-hover-secondary: #555;
+
+    --color-logo: #EE3A43;
+    --color-nav-link: #212121;
+    --color-nav-link-hover: #EE3A43;
+    --color-card: #00A149;
+    --color-overlay-img: rgba(243, 39, 76, 0.70);
+
+    --color-cta-primary: #F3274C;
+    --color-cta-secondary: #FFC222;
+    --color-cta-tertiary: #000;
+    --color-cta-submit: #FFD40D;
+
+    --color-cta-primary-hover: #d41e3c;
+    --color-cta-secondary-hover: #E6AE00;
+    --color-cta-tertiary-hover: #222222;
+
+    --color-dot-active: #F3274C;
+    --color-dot-inactive: #B5B5B5;
+
+
+    --color-discount-price: #FFD40D;
+    --color-count: #212121;
+
+    --color-border-card: #FFD40D;
+    --color-border-footer: #FFD40D;
+    --color-card-bg: rgba(0, 0, 0, 0.8);
+    --color-border-chip: #E4E4E4;
+    --color-circles: #F5F8FD;
+
+    --color-border-menu: #000;
+
+    --color-primary-section: #F5F8FD;
+    --color-app-section: #F3274C;
+    --color-overlay-gallery: rgba(255, 255, 255, 0.70);
+}

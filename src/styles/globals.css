@@ -1,0 +1,19 @@
+@import "tailwindcss";
+/* @import "../styles/fonts.css"; */
+@import "../styles/theme.css";
+@import "../styles/variables.css";
+
+:root {
+  --background-color: #EDE8D5;
+  --text-primary: #16261B;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-primary);
+  font-family: var(--font-body), sans-serif;
+}
+
+/* * {
+  outline: 1px solid red;
+} */
