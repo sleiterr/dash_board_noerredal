@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { DM_Sans, Fugaz_One } from "next/font/google";
 import "@/styles/globals.css";
 
+export const metadata: Metadata = {
+  title: "Noerredal Farm Dashboard",
+  description:
+    "A dashboard for Noerredal Farm built with Next.js and Tailwind CSS",
+};
+
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],

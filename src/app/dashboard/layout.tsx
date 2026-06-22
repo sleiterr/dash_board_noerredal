@@ -8,9 +8,11 @@ export default function DashboardLayout({
 }) {
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <div className="flex min-h-screen w-full">
+        <AppSidebar />
 
-      <main className="flex-1">{children}</main>
+        <main className="flex-1">{children}</main>
+      </div>
     </SidebarProvider>
   );
 }

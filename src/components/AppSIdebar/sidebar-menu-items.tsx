@@ -7,7 +7,7 @@ import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
 import { House, Calendar, Users, Settings } from "lucide-react";
 
-const items = [
+const sidebarLinks: MenuLinks[] = [
   {
     title: "Home",
     href: "/dashboard",
@@ -42,7 +42,7 @@ const SidebarMenuItems = ({ open }: { open: boolean }) => {
   const pathname = usePathname();
   return (
     <>
-      {items.map((item) => (
+      {sidebarLinks.map((item) => (
         <SidebarMenuItem key={item.title} className="p-0!">
           <SidebarMenuButton
             asChild
@@ -90,3 +90,10 @@ const SidebarMenuItems = ({ open }: { open: boolean }) => {
 };
 
 export default SidebarMenuItems;
+
+type MenuLinks = {
+  title: string;
+  href: string;
+  classTitle: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+};
