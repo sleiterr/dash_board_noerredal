@@ -20,6 +20,8 @@ export function AppSidebar() {
   const { open, setOpen } = useSidebar();
   const [pinned, setPinned] = useState(false);
 
+  // const isCollapsed = !open;
+
   return (
     <Sidebar
       className="bg-sidebar pt-4! pb-4!"
@@ -35,8 +37,13 @@ export function AppSidebar() {
       }}
       collapsible="icon"
     >
-      <SidebarHeader className="p-0! pb-3! px-4!">
-        <div className="flex items-center gap-4">
+      <SidebarHeader className={clsx("pb-3!", open ? "px-4!" : "px-3!")}>
+        <div
+          className={clsx(
+            "flex items-center gap-4",
+            open ? "justify-between" : "justify-none",
+          )}
+        >
           <div className="size-10 shrink-0 bg-icon-bg rounded-[14px] shadow-md flex items-center justify-center">
             <LayoutDashboard className="h-5 w-5 text-secondary" />
           </div>
@@ -47,19 +54,29 @@ export function AppSidebar() {
           )}
           <button
             onClick={() => {
-              setPinned(!pinned);
-              setOpen(true);
+              setPinned((prev) => !prev);
             }}
           >
-            <PanelLeft />
+            <PanelLeft
+              className={clsx(
+                "cursor-pointer",
+                open
+                  ? "text-secondary bg-icon-bg shadow-md rounded-full size-10 p-2"
+                  : "w-6 h-6 text-sidebar",
+              )}
+            />
           </button>
         </div>
       </SidebarHeader>
       <SidebarContent className="mt-4">
-        <SidebarGroup className="p-0! py-3! px-4!">
+        <SidebarGroup className={clsx("pb-3!", open ? "px-4!" : "px-2!")}>
           <SidebarGroupContent>
-            <SidebarMenu className="flex flex-col gap-4">
-              <SidebarMenuItems />
+            <SidebarMenu
+              className={clsx(
+                open ? "flex flex-col gap-4" : "items-center gap-6",
+              )}
+            >
+              <SidebarMenuItems open={open} />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -73,7 +90,7 @@ export function AppSidebar() {
         >
           <div
             className={clsx(
-              "h-10 w-10 rounded-full bg-icon-bg shadow-md flex items-center justify-center",
+              "size-10 shrink-0 bg-icon-bg rounded-full shadow-md flex items-center justify-center",
             )}
           ></div>
           {open && (

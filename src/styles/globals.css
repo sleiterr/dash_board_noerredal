@@ -6,6 +6,7 @@
 :root {
   --background-color: #EDE8D5;
   --text-primary: #16261B;
+  --sidebar-width-icon: 6rem;
 }
 
 body {
