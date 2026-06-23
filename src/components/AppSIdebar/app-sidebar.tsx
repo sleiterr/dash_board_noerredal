@@ -49,7 +49,7 @@ export function AppSidebar() {
           </div>
           {open && (
             <p className="font-bold text-lg text-secondary tracking-wide">
-              Noerredal
+              Nørredal
             </p>
           )}
           <button

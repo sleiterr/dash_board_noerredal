@@ -5,11 +5,15 @@
     --color-secondary: #fff;
     --color-tertiary: rgba(255, 255, 255, 0.6);
     --color-quaternary: #A89B7A;
+    --color-quinary: #1E3324;
 
     --color-sidebar: #2D4A35;
     --color-side-bar-icon: rgba(255, 255, 255, 0.6);
     --color-icon-bg: rgba(255, 255, 255, 0.15);
     --color-hover-link: rgba(255, 255, 255, 0.2);
+
+    --color-calendar-arrow: #7CA982;
+    --color-calendar-today: #2D4A35;
 
     --color-footer-border: rgba(255, 255, 255, 0.10);
     --color-footer: rgba(255, 255, 255, 0.7);
