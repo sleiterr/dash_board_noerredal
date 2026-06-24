@@ -1,16 +1,26 @@
 "use client";
-
+import CalendarWeekdays from "./CalendarWeekdays";
+import CalendarToolbar from "./CalendarToolbar";
 import "temporal-polyfill/global";
 
 import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
-import { createViewWeek, createViewMonthGrid } from "@schedule-x/calendar";
-import "@schedule-x/theme-default/dist/index.css";
+import {
+  createViewDay,
+  createViewMonthAgenda,
+  createViewMonthGrid,
+  createViewWeek,
+} from "@schedule-x/calendar";
 import { createEventModalPlugin } from "@schedule-x/event-modal";
 import { createDragAndDropPlugin } from "@schedule-x/drag-and-drop";
 
-const CalendarDashboard = () => {
+const CalendarDashboard = ({}) => {
   const calendar = useCalendarApp({
-    views: [createViewWeek(), createViewMonthGrid()],
+    views: [
+      createViewWeek(),
+      createViewMonthGrid(),
+      createViewMonthAgenda(),
+      createViewDay(),
+    ],
 
     events: [
       {
@@ -26,12 +36,19 @@ const CalendarDashboard = () => {
       },
     ],
 
+    // @ts-ignore
     selectedDate: Temporal.PlainDate.from("2026-06-24"),
     plugins: [createEventModalPlugin(), createDragAndDropPlugin()],
   });
 
+  if (!calendar) {
+    return null;
+  }
+
   return (
-    <section id="calendar" className="flex-1 h-screen">
+    <section id="calendar" className="flex-1 flex-col overflow-hidden">
+      <CalendarToolbar calendar={calendar} />
+      <CalendarWeekdays />
       <ScheduleXCalendar calendarApp={calendar} />
     </section>
   );

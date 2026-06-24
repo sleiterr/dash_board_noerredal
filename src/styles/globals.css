@@ -1,6 +1,10 @@
 @import "tailwindcss";
-@import "../styles/fonts.css";
+
+@import "@schedule-x/theme-default/dist/index.css";
+
 @import "../styles/theme.css";
+@import "../styles/calendar.css";
+@import "../styles/fonts.css";
 @import "../styles/variables.css";
 
 :root {
@@ -13,14 +17,6 @@ body {
   background: var(--background-color);
   color: var(--text-primary);
   font-family: var(--font-body), sans-serif;
-}
-
-#calendar .sx-react-calendar-wrapper {
-  height: 100%;
-}
-
-#calendar .sx__calendar {
-  height: 100%;
 }
 
 /* * {

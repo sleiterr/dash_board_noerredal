@@ -2,7 +2,7 @@ import { Bell, Plus } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between border-b border-header-border px-5 py-3 bg-header-bg">
+    <header className="flex items-center justify-between px-5 py-3 bg-header-bg">
       <div className="flex items-center gap-2">
         <h1 className="text-xl font-bold">Calendar</h1>
       </div>

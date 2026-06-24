@@ -1,0 +1,85 @@
+:root {
+    --sx-color-primary: #6750a4;
+    --sx-color-on-primary: #fff;
+    --sx-color-primary-container: #eaddff;
+    --sx-color-on-primary-container: #21005e;
+    --sx-color-secondary: #625b71;
+    --sx-color-on-secondary: #fff;
+    --sx-color-secondary-container: #e8def8;
+    --sx-color-on-secondary-container: #1e192b;
+    --sx-color-tertiary: #7d5260;
+    --sx-color-on-tertiary: #fff;
+    --sx-color-tertiary-container: #ffd8e4;
+    --sx-color-on-tertiary-container: #370b1e;
+    --sx-color-surface: #fef7ff;
+    --sx-color-surface-dim: #ded8e1;
+    --sx-color-surface-bright: #fef7ff;
+    --sx-color-on-surface: #1c1b1f;
+    --sx-color-surface-container: #f3edf7;
+    --sx-color-surface-container-low: #f7f2fa;
+    --sx-color-surface-container-high: #ece6f0;
+    --sx-color-background: #fff;
+    --sx-color-on-background: #1c1b1f;
+    --sx-color-outline: #79747e;
+    --sx-color-outline-variant: #EDE8D5;
+    --sx-color-shadow: #000;
+    --sx-color-surface-tint: #6750a4;
+    --sx-color-neutral: var(--sx-color-outline);
+    --sx-color-neutral-variant: var(--sx-color-outline-variant);
+
+
+    --sx-internal-color-gray-ripple-background: #e0e0e0;
+    --sx-internal-color-light-gray: #fafafa;
+    --sx-internal-color-text: #000;
+}
+
+#calendar {
+    --sx-rounding-extra-small: 0px;
+    --sx-rounding-small: 0px;
+    --sx-rounding-extra-large: 0px;
+    --sx-border: 1px solid var(--sx-color-outline-variant);
+}
+
+#calendar .sx-react-calendar-wrapper {
+    height: 100%;
+}
+
+#calendar .sx__calendar {
+    height: 100%;
+}
+
+.sx__month-grid-day__header {
+    position: relative;
+}
+
+.sx__month-grid-day__header-day-name {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/*  */
+
+.sx__calendar-header {
+    display: none;
+}
+
+/*  */
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: white;
+    align-items: center;
+    text-align: center;
+
+    padding: 1rem 0;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.sx__month-grid-day__header-day-name {
+    display: none;
+}

@@ -15,6 +15,7 @@
     "@schedule-x/event-modal": "^3.7.3",
     "@schedule-x/react": "^3.7.0",
     "@schedule-x/theme-default": "^3.7.3",
+    "@schedule-x/theme-shadcn": "^4.6.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
