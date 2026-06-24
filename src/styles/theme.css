@@ -2,6 +2,9 @@
     --font-body: var(--font-dm-sans);
     --color-primary: var(--text-primary);
 
+    --color-header-bg: #ffffff;
+    --color-header-border: #EDE8D5;
+
     --color-secondary: #fff;
     --color-tertiary: rgba(255, 255, 255, 0.6);
     --color-quaternary: #A89B7A;

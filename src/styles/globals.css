@@ -15,6 +15,14 @@ body {
   font-family: var(--font-body), sans-serif;
 }
 
+#calendar .sx-react-calendar-wrapper {
+  height: 100%;
+}
+
+#calendar .sx__calendar {
+  height: 100%;
+}
+
 /* * {
   outline: 1px solid red;
 } */
