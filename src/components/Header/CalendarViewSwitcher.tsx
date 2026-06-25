@@ -8,6 +8,9 @@ import { useCalendar } from "@/components/Calendar/CalendarContext";
 const CalendarViewSwitcher = () => {
   // Get the current date from the calendar context to maintain the same date when switching views
   const { calendar } = useCalendar();
+  const [activeView, setActiveView] = useState<string>(
+    () => calendar.$app.calendarState.view.value,
+  );
 
   // State to keep track of the current date
   const [currentDate, setCurrentDate] = useState<Temporal.PlainDate>(
@@ -24,6 +27,14 @@ const CalendarViewSwitcher = () => {
     return () => unsubscribe?.();
   }, [calendar]);
 
+  // Update the active view whenever the calendar's view changes
+  useEffect(() => {
+    const unsubscribe = calendar.$app.calendarState.view.subscribe(
+      (view: string) => setActiveView(view),
+    );
+    return () => unsubscribe();
+  }, [calendar]);
+
   const changeView = (view: "day" | "week" | "month-grid") => {
     // setView приймає (view, PlainDate) — same as setRange, so we can use the currentDate to keep the same date when changing views
     calendar.$app.calendarState.setView(view, currentDate);
@@ -33,8 +44,10 @@ const CalendarViewSwitcher = () => {
     <div className="flex items-center justify-center gap-1 rounded-full bg-cta-bg w-57 h-10 px-2 py-1 text-sm font-medium text-cta-link">
       <button
         className={clsx(
-          "font-medium text-xs text-ext-view-toggle",
-          " hover:text-secondary hover:bg-calendar-toggle transition-all duration-300 px-4 py-2 rounded-full cursor-pointer hover:shadow-md",
+          "font-medium text-xs transition-all duration-300 px-4 py-2 rounded-full cursor-pointer",
+          activeView === "day"
+            ? "text-secondary bg-calendar-toggle shadow-md"
+            : "text-ext-view-toggle hover:text-secondary hover:bg-calendar-toggle hover:shadow-md",
         )}
         type="button"
         onClick={() => changeView("day")}
@@ -43,8 +56,10 @@ const CalendarViewSwitcher = () => {
       </button>
       <button
         className={clsx(
-          "font-medium text-xs text-ext-view-toggle",
-          " hover:text-secondary hover:bg-calendar-toggle transition-all duration-300 px-4 py-2 rounded-full cursor-pointer hover:shadow-md",
+          "font-medium text-xs transition-all duration-300 px-4 py-2 rounded-full cursor-pointer",
+          activeView === "week"
+            ? "text-secondary bg-calendar-toggle shadow-md"
+            : "text-ext-view-toggle hover:text-secondary hover:bg-calendar-toggle hover:shadow-md",
         )}
         type="button"
         onClick={() => changeView("week")}
@@ -53,8 +68,10 @@ const CalendarViewSwitcher = () => {
       </button>
       <button
         className={clsx(
-          "font-medium text-xs text-ext-view-toggle",
-          " hover:text-secondary hover:bg-calendar-toggle transition-all duration-300 px-4 py-2 rounded-full cursor-pointer hover:shadow-md",
+          "font-medium text-xs transition-all duration-300 px-4 py-2 rounded-full cursor-pointer",
+          activeView === "month-grid"
+            ? "text-secondary bg-calendar-toggle shadow-md"
+            : "text-ext-view-toggle hover:text-secondary hover:bg-calendar-toggle hover:shadow-md",
         )}
         type="button"
         onClick={() => changeView("month-grid")}

@@ -1,9 +1,13 @@
+"use client";
+import { useState } from "react";
 import clsx from "clsx";
-
 import { Bell, Plus, CalendarDays } from "lucide-react";
 import CalendarViewSwitcher from "./CalendarViewSwitcher";
+import ModalNewEvent from "./ModalNewEvent";
 
 const Header = () => {
+  const [islOpen, setIsOpen] = useState(false);
+
   return (
     <header className="flex items-center justify-between px-5 py-3 bg-header-bg border-b border-header-border">
       <div className="flex items-center gap-4">
@@ -28,6 +32,7 @@ const Header = () => {
           </button>
 
           <button
+            onClick={() => setIsOpen(true)}
             className={clsx(
               "font-normal text-xs text-white",
               "flex items-center gap-2 px-4 py-2 rounded-full shadow-md bg-cta-modal cursor-pointer",
@@ -39,6 +44,7 @@ const Header = () => {
           </button>
         </div>
       </div>
+      {islOpen && <ModalNewEvent onClose={() => setIsOpen(false)} />}
     </header>
   );
 };

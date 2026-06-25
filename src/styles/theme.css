@@ -11,11 +11,20 @@
     --color-quinary: #1E3324;
     --color-senary: #8B6F5E;
 
+    --color-cta-bg: #EDE8D5;
     --color-cta-link: #2D4A35;
+
     --color-cta-modal: #2D4A35;
     --color-cta-modal-hover: #3a5c44;
     --color-cta-link-active: #2D4A35;
 
+    /*? ModalEvent */
+    --color-modal-event-bg: #ffffff;
+    --color-modal-icon-close: #8B6F5E;
+    --color-modal-title: #16261B;
+    --color-modal-text: #2D4A35;
+
+    /*? SideBar */
     --color-sidebar: #2D4A35;
     --color-side-bar-icon: rgba(255, 255, 255, 0.6);
     --color-icon-bg: rgba(255, 255, 255, 0.15);
@@ -29,7 +38,6 @@
     --color-calendar-toggle: #2D4A35;
     --color-header-border: #EDE8D5;
 
-    --color-cta-bg: #EDE8D5;
 
     --color-footer-border: rgba(255, 255, 255, 0.10);
     --color-footer: rgba(255, 255, 255, 0.7);
