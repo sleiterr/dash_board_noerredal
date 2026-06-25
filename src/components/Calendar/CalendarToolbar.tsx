@@ -61,7 +61,9 @@ const CalendarToolbar = () => {
           <ChevronLeft className="text-calendar-arrow h-4 w-4" />
         </button>
 
-        <span>{title}</span>
+        <span className="font-medium text-base text-calendar-title">
+          {title}
+        </span>
 
         <button
           className="p-2 rounded-full hover:bg-cta-bg transition-colors duration-300 cursor-pointer"
@@ -72,7 +74,7 @@ const CalendarToolbar = () => {
         </button>
       </div>
 
-      <div className="">
+      <div>
         <button
           className="font-medium text-xs text-cta-link bg-cta-bg px-4 py-2 rounded-4xl hover:bg-cta-link hover:text-white transition-colors duration-300 cursor-pointer"
           type="button"

@@ -35,7 +35,7 @@ const CalendarWeekdays = () => {
   }
 
   return (
-    <div className="calendar-weekdays border-t border-header-border">
+    <div className="calendar-weekdays">
       {weekdays.map(({ id, label }) => (
         <span key={id} className="font-medium text-center text-xs text-senary">
           {label}

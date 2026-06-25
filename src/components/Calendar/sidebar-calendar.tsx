@@ -24,7 +24,7 @@ const SidebarCalendar = () => {
             "flex items-center justify-center w-6 h-6 rounded-full text-calendar-arrow hover:bg-quaternary/10 cursor-pointer",
           week: cn("mt-2 flex w-full", defaultClassNames.week),
           weekday: "flex-1 font-medium text-xs text-quaternary upercase",
-          today: "bg-calendar-today rounded-full",
+          today: "bg-calendar-toggle rounded-full",
           day: cn(
             "group/day relative aspect-square h-full w-full rounded-(--cell-radius)",
             "font-medium text-sidebar text-sm p-0 text-center select-none",
