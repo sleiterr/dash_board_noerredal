@@ -1,10 +1,17 @@
-import { Bell, Plus } from "lucide-react";
+import { Bell, Plus, CalendarDays } from "lucide-react";
+import CalendarViewSwitcher from "./CalendarViewSwitcher";
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between px-5 py-3 bg-header-bg">
+    <header className="flex items-center justify-between px-5 py-3 bg-header-bg border-b border-header-border">
       <div className="flex items-center gap-2">
-        <h1 className="text-xl font-bold">Calendar</h1>
+        <div className="size-10 shrink-0 bg-sidebar rounded-full shadow-md flex items-center justify-center">
+          <CalendarDays className="h-5 w-5 text-secondary" />
+        </div>
+        <p className="font-bold text-sm text-quinary tracking-wide">Nørredal</p>
+      </div>
+      <div className="">
+        <CalendarViewSwitcher />
       </div>
 
       <div className="flex items-center gap-2">
