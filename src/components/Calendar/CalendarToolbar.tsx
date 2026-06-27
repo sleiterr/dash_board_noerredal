@@ -24,6 +24,15 @@ const CalendarToolbar = () => {
     return () => unsubscribe?.();
   }, [calendar]);
 
+  // useEffect(() => {
+  //   console.log("calendarEvents:", calendar.$app.calendarEvents);
+  //   console.log(
+  //     "calendarEvents keys:",
+  //     Object.keys(calendar.$app.calendarEvents),
+  //   );
+  //   console.log("events:", calendar.$app.calendarEvents.list.value);
+  // }, [calendar]);
+
   // Format the current date to display the month and year in a readable format
   const title = new Date(
     currentDate.year,

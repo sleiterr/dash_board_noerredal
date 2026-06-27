@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Bell, Plus, CalendarDays } from "lucide-react";
 import CalendarViewSwitcher from "./CalendarViewSwitcher";
 import ModalNewEvent from "./ModalNewEvent";
+import EventStats from "./EventStats";
 
 const Header = () => {
   const [islOpen, setIsOpen] = useState(false);
@@ -25,7 +26,9 @@ const Header = () => {
       <div className="flex items-center gap-2">
         <div className=""></div>
         <div className=""></div>
-        <div className=""></div>
+        <div className="">
+          <EventStats />
+        </div>
         <div className="flex items-center gap-2">
           <button className="p-2 rounded-full hover:bg-muted">
             <Bell className="h-4 w-4 text-calendar-icon" />

@@ -30,6 +30,16 @@
     --color-icon-bg: rgba(255, 255, 255, 0.15);
     --color-hover-link: rgba(255, 255, 255, 0.2);
 
+    /*? Event Stats */
+    --color-border-event-stats: #EDE8D5;
+    --color-event-stats-bg: #F7F3EC;
+    --color-border-event: #DDD6FF;
+
+    /*? Event Form */
+    --color-input-bg: #F7F3EC;
+    --color-border-input: #F7F3EC;
+    --color-input-focus: #7CA982;
+
 
     --color-calendar-title: #16261B;
     --color-calendar-icon: #7CA982;

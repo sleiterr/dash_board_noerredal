@@ -27,10 +27,10 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
         id: "1",
         title: "Team Meeting",
         start: Temporal.ZonedDateTime.from(
-          "2026-06-24T10:00:00+02:00[Europe/Copenhagen]",
+          "2026-06-27T10:00:00+02:00[Europe/Copenhagen]",
         ),
         end: Temporal.ZonedDateTime.from(
-          "2026-06-24T11:00:00+02:00[Europe/Copenhagen]",
+          "2026-06-27T11:00:00+02:00[Europe/Copenhagen]",
         ),
         description: "Discuss project updates and next steps.",
       },
