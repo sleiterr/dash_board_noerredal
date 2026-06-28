@@ -28,6 +28,7 @@ const formSchema = z.object({
 export function FormEvent() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
     defaultValues: {
       title: "",
       date: "",
@@ -73,7 +74,7 @@ export function FormEvent() {
                     autoComplete="off"
                     className={clsx(
                       "font-normal text-sm text-quinary placeholder:text-quaternary",
-                      "h-9 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
+                      "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
                       "shadow transition-shadow duration-300",
                       "focus:outline-none focus:ring-1 focus:ring-input-focus!",
                       "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
@@ -96,7 +97,14 @@ export function FormEvent() {
                   <DatePicker
                     value={field.value}
                     onChange={field.onChange}
-                    triggerClassName="h-9 py-2 px-3 bg-input-bg border border-border-input font-normal text-sm rounded-[14px]"
+                    triggerClassName={clsx(
+                      "font-normal text-sm text-quaternary",
+                      "h-9.5 py-2 px-3 bg-input-bg rounded-[14px]",
+                      "border border-border-input",
+                      "shadow transition-shadow duration-300",
+                      "focus:outline-none focus:ring-1 focus:ring-input-focus!",
+                      "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
+                    )}
                     calendarClassName="rounded-[14px] bg-white! shadow-lg"
                   />
                 )}
@@ -122,7 +130,7 @@ export function FormEvent() {
                     aria-invalid={fieldState.invalid}
                     className={clsx(
                       "font-normal text-sm text-quinary placeholder:text-quaternary",
-                      "h-9 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
+                      "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
                       "shadow transition-shadow duration-300",
                       "focus:outline-none focus:ring-1 focus:ring-input-focus!",
                       "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
@@ -149,7 +157,7 @@ export function FormEvent() {
                     aria-invalid={fieldState.invalid}
                     className={clsx(
                       "font-normal text-sm text-quinary placeholder:text-quaternary",
-                      "h-9 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
+                      "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
                       "shadow transition-shadow duration-300",
                       "focus:outline-none focus:ring-1 focus:ring-input-focus!",
                       "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
@@ -162,13 +170,30 @@ export function FormEvent() {
         </form>
       </CardContent>
       <div className="flex items-center justify-center gap-2 mt-5">
-        <Button type="button" variant="outline" onClick={() => form.reset()}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => form.reset()}
+          className={clsx(
+            "font-medium text-sm text-cta-modal",
+            "flex-1 h-10 bg-cta-bg py-2 px-12 rounded-[14px]",
+            "hover:bg-cta-bg-hover transition-all duration-300 cursor-pointer border-0",
+          )}
+        >
           Cancel
         </Button>
         <Button
           type="submit"
           form="form-rhf-input"
           disabled={form.formState.isSubmitting}
+          className={clsx(
+            "font-medium text-sm text-secondary flex-1 h-10 py-2 px-12 rounded-[14px]",
+            "transition-colors focus-visible:ring-0 focus-visible:border-transparent",
+            "",
+            form.formState.isValid
+              ? "bg-form-btn-event hover:bg-cta-modal-hover transition-all duration-300 cursor-pointer"
+              : "bg-form-btn-event opacity-40 cursor-not-allowed",
+          )}
         >
           Add Event
         </Button>

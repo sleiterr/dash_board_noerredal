@@ -14,6 +14,32 @@ const CalendarToolbar = () => {
     () => calendar.$app.datePickerState.selectedDate.value,
   );
 
+  // Effect to update the time format in the week view and subscribe to view changes
+  useEffect(() => {
+    const addTimeFormat = () => {
+      const hourElements = document.querySelectorAll(
+        ".sx__week-grid__hour-text",
+      );
+      hourElements.forEach((el) => {
+        if (el.textContent && !el.textContent.includes(":")) {
+          el.textContent = el.textContent.trim() + ":00";
+        }
+      });
+    };
+
+    const timer = setTimeout(addTimeFormat, 100);
+
+    // підписуємось на зміну view
+    const unsubscribe = calendar.$app.calendarState.view.subscribe(() => {
+      setTimeout(addTimeFormat, 100);
+    });
+
+    return () => {
+      clearTimeout(timer);
+      unsubscribe?.();
+    };
+  }, [calendar]);
+
   // Subscribe to changes in the selected date and update the state accordingly
   useEffect(() => {
     const unsubscribe = calendar.$app.datePickerState.selectedDate.subscribe(
@@ -24,20 +50,11 @@ const CalendarToolbar = () => {
     return () => unsubscribe?.();
   }, [calendar]);
 
-  // useEffect(() => {
-  //   console.log("calendarEvents:", calendar.$app.calendarEvents);
-  //   console.log(
-  //     "calendarEvents keys:",
-  //     Object.keys(calendar.$app.calendarEvents),
-  //   );
-  //   console.log("events:", calendar.$app.calendarEvents.list.value);
-  // }, [calendar]);
-
   // Format the current date to display the month and year in a readable format
   const title = new Date(
     currentDate.year,
     currentDate.month - 1,
-  ).toLocaleString("en-DK", {
+  ).toLocaleString("da-DK", {
     month: "long",
     year: "numeric",
   });

@@ -12,6 +12,7 @@
     --color-senary: #8B6F5E;
 
     --color-cta-bg: #EDE8D5;
+    --color-cta-bg-hover: #E3DCC4;
     --color-cta-link: #2D4A35;
 
     --color-cta-modal: #2D4A35;
@@ -39,6 +40,7 @@
     --color-input-bg: #F7F3EC;
     --color-border-input: #F7F3EC;
     --color-input-focus: #7CA982;
+    --color-form-btn-event: #2D4A35;
 
 
     --color-calendar-title: #16261B;
