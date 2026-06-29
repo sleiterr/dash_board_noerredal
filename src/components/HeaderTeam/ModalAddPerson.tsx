@@ -1,17 +1,19 @@
 import { Modal } from "@/components/Modal/Modal";
-import { FormEvent } from "./FormEvent";
+import { FormPerson } from "./FormPerson";
 
-const ModalNewEvent = ({ onClose }: ConfirmDeleteModalProps) => {
+const ModalAddPerson = ({ onClose }: ConfirmDeleteModalProps) => {
   return (
     <Modal show={true} onClose={onClose}>
       <div className="flex items-center justify-between mb-5">
-        <div className="">
-          <h4 className="font-medium text-lg text-modal-title">
-            Add New Event
-          </h4>
+        <div className="flex flex-col items-start">
+          <h4 className="font-medium text-lg text-modal-title">New Person</h4>
+          <p className="font-normal text-sm text-modal-text">Medarbejdere</p>
         </div>
-        <div className="self-center">
-          <button onClick={onClose} className="font-bold cursor-pointer">
+        <div className="self-start">
+          <button
+            onClick={onClose}
+            className="font-bold text-lg cursor-pointer"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -31,18 +33,15 @@ const ModalNewEvent = ({ onClose }: ConfirmDeleteModalProps) => {
         </div>
       </div>
       <div className="flex flex-col">
-        <div className="self-start mb-2">
-          <p className="font-normal text-sm text-modal-text">Assign to</p>
-        </div>
         <div>
-          <FormEvent />
+          <FormPerson onClose={onClose} />
         </div>
       </div>
     </Modal>
   );
 };
 
-export default ModalNewEvent;
+export default ModalAddPerson;
 
 type ConfirmDeleteModalProps = {
   onClose: () => void;

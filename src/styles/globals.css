@@ -19,6 +19,14 @@ body {
   font-family: var(--font-body), sans-serif;
 }
 
+[data-radix-popper-content-wrapper] {
+  border: none !important;
+}
+
+[role="listbox"] {
+  border: none !important;
+}
+
 /* * {
   outline: 1px solid red;
 } */

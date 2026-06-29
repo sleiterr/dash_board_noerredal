@@ -10,21 +10,21 @@ import { House, Calendar, Users, Settings } from "lucide-react";
 const sidebarLinks: MenuLinks[] = [
   {
     title: "Home",
-    href: "/dashboard",
+    href: "/",
     classTitle:
       "font-medium text-xl text-tertiary group-hove/sidebar::text-secondary transition-colors duration-300",
     icon: House,
   },
   {
     title: "Calendar",
-    href: "/dashboard/calendar",
+    href: "/dashboard",
     classTitle:
       "font-medium text-xl text-tertiary group-hove/sidebar::text-secondary transition-colors duration-300",
     icon: Calendar,
   },
   {
-    title: "Employees",
-    href: "/",
+    title: "Team",
+    href: "/dashboard/team",
     classTitle:
       "font-medium text-xl text-tertiary group-hove/sidebar::text-secondary transition-colors duration-300",
     icon: Users,

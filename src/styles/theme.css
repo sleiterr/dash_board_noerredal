@@ -41,6 +41,8 @@
     --color-border-input: #F7F3EC;
     --color-input-focus: #7CA982;
     --color-form-btn-event: #2D4A35;
+    --color-form-event-active: #7CA982;
+    --color-hover-event: #F7F3EC;
 
 
     --color-calendar-title: #16261B;
@@ -50,6 +52,8 @@
     --color-calendar-toggle: #2D4A35;
     --color-header-border: #EDE8D5;
 
+    /*? Header Team */
+    --color-team-title: #16261B;
 
     --color-footer-border: rgba(255, 255, 255, 0.10);
     --color-footer: rgba(255, 255, 255, 0.7);
@@ -59,4 +63,15 @@
     --color-sidebar-bg-calendar: #fff;
 
     --sidebar-width-icon: 6rem;
+
 }
+
+[data-placeholder] {
+    color: var(--color-quaternary);
+}
+
+/* input[type="time"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field {
+    color: var(--color-quaternary);
+} */

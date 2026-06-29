@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
+import { format } from "date-fns";
 
 import clsx from "clsx";
 import { Button } from "@/components/ui/button";
@@ -17,10 +18,14 @@ import {
 } from "@/components/ui/card";
 import { DatePicker } from "./DatePicker";
 import { Input } from "@/components/ui/input";
+import { DateRange } from "react-day-picker";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  date: z.string().min(1, "Date is required"),
+  dateRange: z.object({
+    from: z.date(),
+    to: z.date().optional(),
+  }),
   startTime: z.string().min(1, "Start time is required"),
   endTime: z.string().min(1, "End time is required"),
 });
@@ -31,22 +36,20 @@ export function FormEvent() {
     mode: "onChange",
     defaultValues: {
       title: "",
-      date: "",
+      dateRange: undefined,
       startTime: "",
       endTime: "",
     },
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    toast("Event created !", {
-      description: `"${data.title}" has been created successfully. Date: ${data.date}`,
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
+    const startDate = format(data.dateRange.from, "yyyy-MM-dd");
+    const endDate = data.dateRange.to
+      ? format(data.dateRange.to, "yyyy-MM-dd")
+      : startDate; // якщо один день — start і end однакові
+
+    toast("Event created!", {
+      description: `"${data.title}" scheduled for ${startDate} → ${endDate} from ${data.startTime} to ${data.endTime}.`,
     });
   }
 
@@ -91,21 +94,18 @@ export function FormEvent() {
                 Date
               </label>
               <Controller
-                name="date"
+                name="dateRange"
                 control={form.control}
                 render={({ field }) => (
                   <DatePicker
-                    value={field.value}
+                    value={field.value as DateRange}
                     onChange={field.onChange}
                     triggerClassName={clsx(
-                      "font-normal text-sm text-quaternary",
+                      "font-normal text-sm text-quinary",
                       "h-9.5 py-2 px-3 bg-input-bg rounded-[14px]",
                       "border border-border-input",
-                      "shadow transition-shadow duration-300",
-                      "focus:outline-none focus:ring-1 focus:ring-input-focus!",
-                      "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
                     )}
-                    calendarClassName="rounded-[14px] bg-white! shadow-lg"
+                    calendarClassName="rounded-[14px] bg-white! shadow-lg text-black!"
                   />
                 )}
               />
@@ -126,10 +126,17 @@ export function FormEvent() {
                   <Input
                     {...field}
                     type="time"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      e.target.setAttribute(
+                        "data-has-value",
+                        e.target.value ? "true" : "false",
+                      );
+                    }}
                     id="form-rhf-input-startTime"
                     aria-invalid={fieldState.invalid}
                     className={clsx(
-                      "font-normal text-sm text-quinary placeholder:text-quaternary",
+                      "font-normal text-sm text-quinary",
                       "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
                       "shadow transition-shadow duration-300",
                       "focus:outline-none focus:ring-1 focus:ring-input-focus!",
@@ -156,7 +163,7 @@ export function FormEvent() {
                     id="form-rhf-input-endTime"
                     aria-invalid={fieldState.invalid}
                     className={clsx(
-                      "font-normal text-sm text-quinary placeholder:text-quaternary",
+                      "font-normal text-sm text-quinary",
                       "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
                       "shadow transition-shadow duration-300",
                       "focus:outline-none focus:ring-1 focus:ring-input-focus!",
