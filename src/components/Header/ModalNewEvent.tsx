@@ -35,7 +35,7 @@ const ModalNewEvent = ({ onClose }: ConfirmDeleteModalProps) => {
           <p className="font-normal text-sm text-modal-text">Assign to</p>
         </div>
         <div>
-          <FormEvent />
+          <FormEvent onClose={onClose} />
         </div>
       </div>
     </Modal>

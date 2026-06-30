@@ -1,13 +1,72 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import clsx from "clsx";
 import { Modal } from "@/components/Modal/Modal";
 import { FormPerson } from "./FormPerson";
+import { EVENT_COLOR_DATA, getInitials } from "@/lib/eventColors";
 
+// Define the form schema using Zod
+const formSchema = z.object({
+  fullName: z.string().min(1, "Full name is required"),
+  role: z.string().min(1, "Role is required"),
+  location: z.string().min(1, "Location is required"),
+  phone: z
+    .string()
+    .min(1, "Phone is required")
+    .regex(/^\+?[\d\s\-().]{7,15}$/, "Invalid phone number"),
+  color: z.enum(["green", "purple", "blue", "orange", "rose"]),
+  email: z.string().email("Invalid email address"),
+});
+
+// Define the type for the form data based on the schema
+// resolver: zodResolver(formSchema) will ensure that the form data adheres to this schema
 const ModalAddPerson = ({ onClose }: ConfirmDeleteModalProps) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    mode: "onChange",
+    defaultValues: {
+      fullName: "",
+      role: "",
+      location: "",
+      phone: "",
+      color: "green",
+      email: "",
+    },
+  });
+
+  // fullName role color are watched to update the avatar and display information in real-time
+  const fullName = form.watch("fullName");
+  // role and color are watched to update the avatar and display information in real-time
+  const role = form.watch("role");
+  // color is watched to update the avatar and display information in real-time
+  const color = form.watch("color");
+  // Get the color data for the selected color
+  const colors = EVENT_COLOR_DATA[color];
+  // Get the initials for the full name to display in the avatar
+  const initials = getInitials(fullName);
+
   return (
     <Modal show={true} onClose={onClose}>
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex flex-col items-start">
-          <h4 className="font-medium text-lg text-modal-title">New Person</h4>
-          <p className="font-normal text-sm text-modal-text">Medarbejdere</p>
+      <div className="flex items-center justify-between">
+        <div className="flex flex-row items-start gap-3">
+          <div
+            className={clsx(
+              "w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shadow-md transition-all",
+              colors.avatarBg,
+              colors.avatarText,
+            )}
+          >
+            {initials}
+          </div>
+          <div>
+            <h4 className="text-modal-title font-semibold text-sm">
+              {fullName.trim() || "New Person"}
+            </h4>
+            <p className="text-quaternary text-xs">{role || "Select a role"}</p>
+          </div>
         </div>
         <div className="self-start">
           <button
@@ -32,10 +91,9 @@ const ModalAddPerson = ({ onClose }: ConfirmDeleteModalProps) => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col">
-        <div>
-          <FormPerson onClose={onClose} />
-        </div>
+      <div className="border-b border-header-border -mx-6 mt-4" />
+      <div className="flex flex-col mt-5">
+        <FormPerson onClose={onClose} form={form} />
       </div>
     </Modal>
   );

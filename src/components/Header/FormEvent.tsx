@@ -6,19 +6,10 @@ import { toast } from "sonner";
 import * as z from "zod";
 import { format } from "date-fns";
 
-import clsx from "clsx";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { DatePicker } from "./DatePicker";
-import { Input } from "@/components/ui/input";
-import { DateRange } from "react-day-picker";
+import FormActions from "./FormActions";
+import FormInput from "@/components/HeaderTeam/FormInput";
+import { CardContent } from "@/components/ui/card";
+import FormDatePicker from "./FormDatePicker";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -30,7 +21,7 @@ const formSchema = z.object({
   endTime: z.string().min(1, "End time is required"),
 });
 
-export function FormEvent() {
+export function FormEvent({ onClose }: { onClose: () => void }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
@@ -46,7 +37,7 @@ export function FormEvent() {
     const startDate = format(data.dateRange.from, "yyyy-MM-dd");
     const endDate = data.dateRange.to
       ? format(data.dateRange.to, "yyyy-MM-dd")
-      : startDate; // якщо один день — start і end однакові
+      : startDate; // if one day event, endDate is the same as startDate
 
     toast("Event created!", {
       description: `"${data.title}" scheduled for ${startDate} → ${endDate} from ${data.startTime} to ${data.endTime}.`,
@@ -58,153 +49,30 @@ export function FormEvent() {
       <CardContent>
         <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-4 mb-4">
-            <div className="flex flex-col items-start gap-1">
-              <label
-                htmlFor="form-rhf-input-title"
-                className="font-medium text-sm text-modal-text"
-              >
-                Event Title
-              </label>
-              <Controller
-                name="title"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Input
-                    {...field}
-                    id="form-rhf-input-title"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Enter event title..."
-                    autoComplete="off"
-                    className={clsx(
-                      "font-normal text-sm text-quinary placeholder:text-quaternary",
-                      "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
-                      "shadow transition-shadow duration-300",
-                      "focus:outline-none focus:ring-1 focus:ring-input-focus!",
-                      "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
-                    )}
-                  />
-                )}
-              />
-            </div>
-            <div className="flex flex-col items-start gap-1">
-              <label
-                htmlFor="form-rhf-input-date"
-                className="font-medium text-sm text-modal-text"
-              >
-                Date
-              </label>
-              <Controller
-                name="dateRange"
-                control={form.control}
-                render={({ field }) => (
-                  <DatePicker
-                    value={field.value as DateRange}
-                    onChange={field.onChange}
-                    triggerClassName={clsx(
-                      "font-normal text-sm text-quinary",
-                      "h-9.5 py-2 px-3 bg-input-bg rounded-[14px]",
-                      "border border-border-input",
-                    )}
-                    calendarClassName="rounded-[14px] bg-white! shadow-lg text-black!"
-                  />
-                )}
-              />
-            </div>
+            <FormInput
+              form={form}
+              label="Event Title"
+              name="title"
+              placeholder="Enter event title..."
+            />
+            <FormDatePicker label="Date" name="dateRange" form={form} />
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="flex flex-col items-start gap-1">
-              <label
-                htmlFor="form-rhf-input-startTime"
-                className="font-medium text-sm text-modal-text"
-              >
-                Start
-              </label>
-              <Controller
-                name="startTime"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Input
-                    {...field}
-                    type="time"
-                    onChange={(e) => {
-                      field.onChange(e);
-                      e.target.setAttribute(
-                        "data-has-value",
-                        e.target.value ? "true" : "false",
-                      );
-                    }}
-                    id="form-rhf-input-startTime"
-                    aria-invalid={fieldState.invalid}
-                    className={clsx(
-                      "font-normal text-sm text-quinary",
-                      "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
-                      "shadow transition-shadow duration-300",
-                      "focus:outline-none focus:ring-1 focus:ring-input-focus!",
-                      "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
-                    )}
-                  />
-                )}
-              />
-            </div>
-            <div className="flex flex-col items-start gap-1">
-              <label
-                htmlFor="form-rhf-input-endTime"
-                className="font-medium text-sm text-modal-text"
-              >
-                End
-              </label>
-              <Controller
-                name="endTime"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Input
-                    {...field}
-                    type="time"
-                    id="form-rhf-input-endTime"
-                    aria-invalid={fieldState.invalid}
-                    className={clsx(
-                      "font-normal text-sm text-quinary",
-                      "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
-                      "shadow transition-shadow duration-300",
-                      "focus:outline-none focus:ring-1 focus:ring-input-focus!",
-                      "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
-                    )}
-                  />
-                )}
-              />
-            </div>
+            <FormInput label="Start" name="startTime" type="time" form={form} />
+            <FormInput label="End" name="endTime" type="time" form={form} />
           </div>
         </form>
       </CardContent>
-      <div className="flex items-center justify-center gap-2 mt-5">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => form.reset()}
-          className={clsx(
-            "font-medium text-sm text-cta-modal",
-            "flex-1 h-10 bg-cta-bg py-2 px-12 rounded-[14px]",
-            "hover:bg-cta-bg-hover transition-all duration-300 cursor-pointer border-0",
-          )}
-        >
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          form="form-rhf-input"
-          disabled={form.formState.isSubmitting}
-          className={clsx(
-            "font-medium text-sm text-secondary flex-1 h-10 py-2 px-12 rounded-[14px]",
-            "transition-colors focus-visible:ring-0 focus-visible:border-transparent",
-            "",
-            form.formState.isValid
-              ? "bg-form-btn-event hover:bg-cta-modal-hover transition-all duration-300 cursor-pointer"
-              : "bg-form-btn-event opacity-40 cursor-not-allowed",
-          )}
-        >
-          Add Event
-        </Button>
-      </div>
+      <FormActions
+        onCancel={() => {
+          form.reset();
+          onClose();
+        }}
+        formId="form-rhf-input"
+        isValid={form.formState.isValid}
+        isSubmitting={form.formState.isSubmitting}
+        submitLabel="Add Event"
+      />
     </div>
   );
 }
