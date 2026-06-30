@@ -57,13 +57,12 @@
 
     --color-footer-border: rgba(255, 255, 255, 0.10);
     --color-footer: rgba(255, 255, 255, 0.7);
-
     --color-sidebar-hover-link: rgba(255, 255, 255, 0.2);
-
     --color-sidebar-bg-calendar: #fff;
-
     --sidebar-width-icon: 6rem;
 
+    /*? Accordion Team */
+    --color-accordion-border: #EDE8D5;
 }
 
 [data-placeholder] {

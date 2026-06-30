@@ -1,12 +1,13 @@
 import React from "react";
 import HeaderTeam from "@/components/HeaderTeam/HeaderTeam";
+import TeamAccordion from "@/components/TeamAccordion/TeamAccordion";
 
 const page = () => {
   return (
-    <div>
+    <section>
       <HeaderTeam />
-      <h2 className="text-2xl font-bold">Team</h2>
-    </div>
+      <TeamAccordion />
+    </section>
   );
 };
 
