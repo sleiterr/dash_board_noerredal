@@ -64,13 +64,3 @@
     /*? Accordion Team */
     --color-accordion-border: #EDE8D5;
 }
-
-[data-placeholder] {
-    color: var(--color-quaternary);
-}
-
-/* input[type="time"]::-webkit-datetime-edit-text,
-input[type="time"]::-webkit-datetime-edit-hour-field,
-input[type="time"]::-webkit-datetime-edit-minute-field {
-    color: var(--color-quaternary);
-} */

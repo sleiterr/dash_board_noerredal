@@ -1,0 +1,17 @@
+.sidebar-gradient {
+    background: linear-gradient(180deg, #2D4A35 40%, #1A2D20 75%);
+}
+
+[data-placeholder] {
+    color: var(--color-quaternary);
+}
+
+.sidebar-gradient {
+    background: linear-gradient(180deg, #2D4A35 40%, #1A2D20 75%);
+}
+
+/* input[type="time"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field {
+    color: var(--color-quaternary);
+} */

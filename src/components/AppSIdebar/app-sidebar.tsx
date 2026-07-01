@@ -24,7 +24,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      className="bg-sidebar pt-4! pb-4!"
+      className={clsx("sidebar-gradient", "pt-4!", "pb-4!")}
       onMouseEnter={() => {
         if (!pinned) {
           setOpen(true);
