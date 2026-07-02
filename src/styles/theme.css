@@ -63,4 +63,11 @@
 
     /*? Accordion Team */
     --color-accordion-border: #EDE8D5;
+    --color-accordion-title: #16261B;
+    --color-accordion-role: #A89B7A;
+    --color-accordion-chevron: #A89B7A;
+    --color-acc-dot: #C5BCED;
+
+    --animate-accordion-down: accordion-down 0.3s ease-out;
+    --animate-accordion-up: accordion-up 0.3s ease-out;
 }

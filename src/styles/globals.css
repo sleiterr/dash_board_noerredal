@@ -6,6 +6,7 @@
 @import "../styles/calendar.css";
 @import "../styles/fonts.css";
 @import "../styles/variables.css";
+@import "../styles/accordion.css";
 
 :root {
   --background-color: #EDE8D5;

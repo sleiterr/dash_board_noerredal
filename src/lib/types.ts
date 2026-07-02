@@ -1,5 +1,7 @@
+// interface for employee status
 export type EmployeeStatus = "present" | "absent" | "late" | "sick";
 
+// interface for event color
 export type EventColor = "green" | "purple" | "blue" | "orange" | "rose";
 
 // interface for employee data

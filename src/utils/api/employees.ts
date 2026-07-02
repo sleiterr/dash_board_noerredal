@@ -1,4 +1,4 @@
-// utils/api/employees.ts
+import type { EmployeeStatus } from "@/lib/types";
 import { supabase } from "@/utils/supabase";
 import type { Employee } from "@/lib/types";
 
@@ -16,9 +16,25 @@ function mapEmployee(row: EmployeeRow): Employee {
 }
 
 export async function getEmployees(): Promise<Employee[]> {
-  const { data, error } = await supabase.from("employees").select("*");
+  const { data, error } = await supabase
+    .from("employees")
+    .select("*")
+    .order("created_at", { ascending: true });
+
   if (error) throw error;
   return (data ?? []).map(mapEmployee);
+}
+
+export async function updateEmployeeStatus(
+  employeeId: string,
+  status: EmployeeStatus,
+): Promise<void> {
+  const { error } = await supabase
+    .from("employees")
+    .update({ status })
+    .eq("id", employeeId);
+
+  if (error) throw error;
 }
 
 type EmployeeRow = {
