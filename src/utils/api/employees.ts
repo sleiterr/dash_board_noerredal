@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import type { EmployeeStatus } from "@/lib/types";
 import { supabase } from "@/utils/supabase";
 import type { Employee } from "@/lib/types";
@@ -18,6 +19,7 @@ function mapEmployee(row: EmployeeRow): Employee {
 
 // Fetch all employees from the database
 export async function getEmployees(): Promise<Employee[]> {
+  noStore();
   const { data, error } = await supabase
     .from("employees")
     .select("*")
@@ -54,7 +56,7 @@ export async function updateEmployee(
   updates: Partial<Omit<Employee, "id">>,
 ): Promise<void> {
   const dbUpdates: Record<string, unknown> = {};
-  
+
   // Map the updates to the database column names
   if (updates.fullName !== undefined) dbUpdates.full_name = updates.fullName;
   if (updates.role !== undefined) dbUpdates.role = updates.role;

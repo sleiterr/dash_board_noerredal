@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import clsx from "clsx";
 import {
   Dialog,
   DialogPanel,
@@ -8,7 +9,12 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 
-export function Modal({ show, children, onClose }: ModalProps) {
+export function Modal({
+  show,
+  children,
+  onClose,
+  classDialogPanel,
+}: ModalProps) {
   return (
     <Transition show={show}>
       <Dialog
@@ -27,7 +33,12 @@ export function Modal({ show, children, onClose }: ModalProps) {
           <div className="fixed inset-0 bg-gray-900 opacity-50" />
         </TransitionChild>
 
-        <DialogPanel className="relative transform overflow-hidden rounded-lg bg-modal-event-bg shadow-xl transition-all p-6 mx-auto sm:my-10 sm:w-full sm:max-w-96.25">
+        <DialogPanel
+          className={clsx(
+            "relative transform overflow-hidden rounded-lg bg-modal-event-bg shadow-xl transition-all p-6 mx-auto sm:my-10 sm:w-full sm:max-w-96.25",
+            classDialogPanel,
+          )}
+        >
           {children}
         </DialogPanel>
       </Dialog>
@@ -39,4 +50,5 @@ type ModalProps = {
   show: boolean;
   children: React.ReactNode;
   onClose: () => void;
+  classDialogPanel?: string;
 };

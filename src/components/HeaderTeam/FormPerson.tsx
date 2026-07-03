@@ -35,7 +35,7 @@ export function FormPerson({ onClose, form }: FormPersonProps) {
   }
 
   return (
-    <div className="">
+    <div>
       <CardContent>
         <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-rows-2 gap-4 mb-4">

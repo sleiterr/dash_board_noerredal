@@ -1,27 +1,37 @@
 "use client";
 
+import { useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import type { Employee } from "../../lib/types";
 import { deleteEmployeeAction } from "@/app/actions/employees";
 
+import ConfirmDelete from "./ConfirmDelete";
+
 const EmployeeActions = ({ employee }: { employee: Employee }) => {
-  // React.MouseEvent
-  // stopPropagation used for preventing the accordion from toggling when clicking on the action buttons
+  const [islOpen, setIsOpen] = useState(false);
+
+  // Function to handle the edit action
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Implement edit functionality here
   };
 
+  // Function to handle the delete action
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const confirmed = confirm(
-      `Are you sure you want to delete ${employee.fullName}?`,
-    );
-    if (confirmed) {
-      // Call the server action to delete the employee
-      deleteEmployeeAction(employee.id);
+    setIsOpen(true);
+  };
+
+  // Function to handle the confirmation of deletion
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteEmployeeAction(employee.id);
+      toast.success(`${employee.fullName} was removed from the team`);
+    } catch (error) {
+      toast.error(`Failed to delete ${employee.fullName}. Please try again.`);
+    } finally {
+      setIsOpen(false);
     }
-    // Implement delete functionality here
   };
 
   return (
@@ -36,8 +46,15 @@ const EmployeeActions = ({ employee }: { employee: Employee }) => {
         onClick={handleDelete}
         className="cursor-pointer text-accordion-role hover:text-red-600"
       >
-        <Trash2 className="h-4 w-4" />
+        <Trash2 className="h-4 w-4" onClick={() => setIsOpen(true)} />
       </button>
+      {islOpen && (
+        <ConfirmDelete
+          employeeName={employee.fullName}
+          onConfirm={handleConfirmDelete}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
     </div>
   );
 };
