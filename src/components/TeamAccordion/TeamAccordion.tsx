@@ -9,6 +9,9 @@ import {
 
 import TeamContact from "./TeamContact";
 import StatusFilter from "./StatusFilter";
+import InfoStatus from "./InfoStatus";
+import EmployeeAvatar from "./EmployeeAvatar";
+import EmployeeActions from "./EmployeeActions";
 
 const TeamAccordion = ({ employees }: TeamAccordionProps) => {
   return (
@@ -26,28 +29,34 @@ const TeamAccordion = ({ employees }: TeamAccordionProps) => {
           >
             <AccordionTrigger
               className={clsx(
-                "flex py-3 px-4",
+                "flex items-center py-3 px-4",
                 "**:data-[slot=accordion-trigger-icon]:size-6 **:data-[slot=accordion-trigger-icon]:text-accordion-chevron **:data-[slot=accordion-trigger-icon]:cursor-pointer",
               )}
             >
-              <div className="">
-                <div className="">
-                  <h4 className="font-semibold text-sm text-accordion-title">
-                    {employee.fullName}
-                  </h4>
-                </div>
-                <div className="flex items-center gap-3">
-                  <p className="font-normal text-xs text-accordion-role">
-                    {employee.role}
-                  </p>
-                  <span className="acc-dot">·</span>
-                  <span className="font-normal text-xs text-accordion-role">
-                    {employee.location}
-                  </span>
+              <div className="flex items-center gap-3 flex-1">
+                <EmployeeAvatar employee={employee} />
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-semibold text-sm text-accordion-title">
+                      {employee.fullName}
+                    </h4>
+                    <InfoStatus employee={employee} />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <p className="font-normal text-xs text-accordion-role">
+                      {employee.role}
+                    </p>
+                    <span className="acc-dot">·</span>
+                    <span className="font-normal text-xs text-accordion-role">
+                      {employee.location}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className="">
+              <div className="flex items-center gap-3">
                 <StatusFilter employee={employee} />
+
+                <EmployeeActions employee={employee} />
               </div>
             </AccordionTrigger>
             <AccordionContent className="border-t border-accordion-border px-4 pt-4 pb-4">

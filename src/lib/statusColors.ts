@@ -25,23 +25,28 @@ export const STATUS_COLOR_DATA: Record<
   }
 > = {
   present: {
-    bgClass: "bg-green-100",
-    textClass: "text-green-700",
-    dotClass: "bg-green-500",
+    bgClass: "bg-[#ECFCCA]",
+    textClass: "text-[#3C6300]",
+    dotClass: "bg-[#3C6300]",
   },
   absent: {
-    bgClass: "bg-gray-100",
-    textClass: "text-gray-700",
-    dotClass: "bg-gray-400",
+    bgClass: "bg-[#FFE4E6]",
+    textClass: "text-[#A50036]",
+    dotClass: "bg-[#A50036]",
   },
   late: {
-    bgClass: "bg-yellow-100",
-    textClass: "text-yellow-700",
-    dotClass: "bg-yellow-500",
+    bgClass: "bg-[#FEF3C6]",
+    textClass: "text-[#973C00]",
+    dotClass: "bg-[#973C00]",
   },
   sick: {
-    bgClass: "bg-red-100",
-    textClass: "text-red-700",
-    dotClass: "bg-red-500",
+    bgClass: "bg-[#DFF2FE]",
+    textClass: "text-[#00598A]",
+    dotClass: "bg-[#00598A]",
   },
+};
+
+export const INACTIVE_STATUS_COLORS = {
+  bgClass: "bg-[#F7F3EC]",
+  textClass: "text-[#A89B7A]",
 };

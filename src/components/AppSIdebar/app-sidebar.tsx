@@ -14,7 +14,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-import { LayoutDashboard, PanelLeft } from "lucide-react";
+import { Leaf, PanelLeft } from "lucide-react";
 
 export function AppSidebar() {
   const { open, setOpen } = useSidebar();
@@ -45,11 +45,11 @@ export function AppSidebar() {
           )}
         >
           <div className="size-10 shrink-0 bg-icon-bg rounded-[14px] shadow-md flex items-center justify-center">
-            <LayoutDashboard className="h-5 w-5 text-secondary" />
+            <Leaf className="h-5 w-5 text-secondary" />
           </div>
           {open && (
             <p className="font-bold text-lg text-secondary tracking-wide">
-              Nørredal
+              TeamsDash
             </p>
           )}
           <button
