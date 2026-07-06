@@ -1,6 +1,8 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { toast } from "sonner";
 import { updateEmployeeAction } from "@/app/actions/employees";
 import type { Employee } from "@/lib/types";
@@ -13,11 +15,19 @@ import { Save } from "lucide-react";
 // array of predefined roles for the role select input
 const ROLES = ["Developer", "Designer", "Manager", "Other"];
 
+// Define the Zod schema for form validation
+const editPersonSchema = z.object({
+  fullName: z.string().min(1, "Full name is required"),
+  role: z.string().min(1, "Role is required"),
+  color: z.enum(["green", "purple", "blue", "orange", "rose"]),
+});
+
 type EditPersonFormData = {
   fullName: string;
   role: string;
   color: Employee["color"];
 };
+
 // Props for the EditPersonForm component
 const EditPersonForm = ({
   employee,
@@ -25,6 +35,8 @@ const EditPersonForm = ({
   onSave,
 }: EditPersonFormProps) => {
   const form = useForm<EditPersonFormData>({
+    resolver: zodResolver(editPersonSchema),
+    mode: "onChange",
     defaultValues: {
       fullName: employee.fullName,
       role: employee.role,

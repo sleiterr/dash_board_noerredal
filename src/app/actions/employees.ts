@@ -6,9 +6,9 @@ import {
   updateEmployee,
   updateEmployeeStatus,
   createEmployee,
+  getEmployees,
 } from "@/utils/api/employees";
 import type { Employee, EmployeeStatus } from "@/lib/types";
-import { supabase } from "@/utils/supabase";
 
 //? This function is a server action that updates the status of an employee and revalidates the cache for the team dashboard page.
 export async function setEmployeeStatusAction(
@@ -52,4 +52,9 @@ export async function createEmployeeAction(person: {
 }) {
   await createEmployee(person);
   revalidatePath("/dashboard/team");
+}
+
+//? Server action for client components to fetch all employees
+export async function getEmployeesAction(): Promise<Employee[]> {
+  return getEmployees();
 }

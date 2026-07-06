@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,6 +11,9 @@ import FormActions from "./FormActions";
 import FormInput from "@/components/HeaderTeam/FormInput";
 import { CardContent } from "@/components/ui/card";
 import FormDatePicker from "./FormDatePicker";
+import EmployeePicker from "./EmployeePicker";
+import { getEmployeesAction } from "@/app/actions/employees";
+import type { Employee } from "@/lib/types";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -19,9 +23,16 @@ const formSchema = z.object({
   }),
   startTime: z.string().min(1, "Start time is required"),
   endTime: z.string().min(1, "End time is required"),
+  employeeId: z.string().nullable().optional(),
 });
 
 export function FormEvent({ onClose }: { onClose: () => void }) {
+  const [employees, setEmployees] = useState<Employee[]>([]);
+
+  useEffect(() => {
+    getEmployeesAction().then(setEmployees).catch(console.error);
+  }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
@@ -30,8 +41,13 @@ export function FormEvent({ onClose }: { onClose: () => void }) {
       dateRange: undefined,
       startTime: "",
       endTime: "",
+      employeeId: null,
     },
   });
+
+  useEffect(() => {
+    form.trigger();
+  }, [form]);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     const startDate = format(data.dateRange.from, "yyyy-MM-dd");
@@ -48,6 +64,19 @@ export function FormEvent({ onClose }: { onClose: () => void }) {
     <div className="">
       <CardContent>
         <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="self-start mb-4">
+            <Controller
+              name="employeeId"
+              control={form.control}
+              render={({ field }) => (
+                <EmployeePicker
+                  employees={employees}
+                  value={field.value ?? null}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+          </div>
           <div className="grid grid-cols-1 gap-4 mb-4">
             <FormInput
               form={form}

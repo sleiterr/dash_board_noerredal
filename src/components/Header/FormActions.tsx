@@ -28,7 +28,7 @@ const FormActions = ({
       <Button
         type="submit"
         form={formId}
-        disabled={isSubmitting}
+        disabled={!isValid || isSubmitting}
         className={clsx(
           "font-medium text-sm text-secondary flex-1 h-10 py-2 px-12 rounded-[14px]",
           "transition-colors focus-visible:ring-0 focus-visible:border-transparent",

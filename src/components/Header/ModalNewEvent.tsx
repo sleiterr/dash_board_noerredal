@@ -31,12 +31,7 @@ const ModalNewEvent = ({ onClose }: ConfirmDeleteModalProps) => {
         </div>
       </div>
       <div className="flex flex-col">
-        <div className="self-start mb-2">
-          <p className="font-normal text-sm text-modal-text">Assign to</p>
-        </div>
-        <div>
-          <FormEvent onClose={onClose} />
-        </div>
+        <FormEvent onClose={onClose} />
       </div>
     </Modal>
   );

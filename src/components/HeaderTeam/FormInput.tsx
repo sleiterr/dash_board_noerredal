@@ -36,9 +36,13 @@ const FormInput = ({
             className={clsx(
               "font-normal text-sm text-quinary placeholder:text-quaternary",
               "h-9.5 py-2 px-3 bg-input-bg border border-border-input rounded-[14px]",
-              "shadow transition-shadow duration-300",
-              "focus:outline-none focus:ring-1 focus:ring-input-focus!",
-              "focus-visible:ring-[0.5px] focus-visible:ring-input-focus! focus-visible:border-input-focus!",
+              "outline-none shadow transition-shadow duration-300",
+              // Custom focus on click AND keyboard
+              "focus:ring-1 focus:ring-input-focus focus:border-input-focus",
+              // Override Shadcn focus-visible ring-3
+              "focus-visible:ring-1 focus-visible:ring-input-focus focus-visible:border-input-focus",
+              // Suppress Shadcn's auto aria-invalid ring (prevents immediate border on mount)
+              "aria-invalid:ring-0 aria-invalid:shadow-none",
               className,
             )}
           />

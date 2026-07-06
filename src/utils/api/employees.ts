@@ -118,6 +118,7 @@ export async function createEmployee(person: {
   return mapEmployee(data);
 }
 
+// This function is a server action that updates an employee's details and revalidates the cache for the team dashboard page.
 export async function updateEmpoyeeStatus(
   employeeId: string,
   updates: Partial<{
