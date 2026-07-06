@@ -1,18 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
+import { getEmployeeStatusCounts } from "@/utils/api/employees";
 import AddPersonBtn from "./AddPersonBtn";
 import ModalAddPerson from "./ModalAddPerson";
+import StatusSummaryChips from "./StatusSummaryChips";
 import { format } from "date-fns";
+import { Employee } from "@/lib/types";
+import ProgreesBar from "./ProgreesBar";
 
-const HeaderTeam = () => {
+const HeaderTeam = ({ employees }: { employees: Employee[] }) => {
   const [islOpen, setIsOpen] = useState(false);
   const today = new Date();
+  const counts = getEmployeeStatusCounts(employees);
 
   return (
     <>
       <header className="h-full flex flex-col overflow-hidden">
-        <div className="bg-white border-b border-header-border px-6 py-4 shrink-0">
+        <div className="flex flex-col gap-4 bg-white border-b border-header-border px-6 py-4 shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex flex-col items-start">
               <h4 className="font-semibold text-base text-team-title">
@@ -23,10 +28,12 @@ const HeaderTeam = () => {
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <AddPersonBtn setIsOpen={setIsOpen} />
+              <StatusSummaryChips counts={counts} />
             </div>
           </div>
+          <ProgreesBar counts={counts} total={employees.length} />
         </div>
         {islOpen && <ModalAddPerson onClose={() => setIsOpen(false)} />}
       </header>

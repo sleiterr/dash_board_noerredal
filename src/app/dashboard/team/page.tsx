@@ -3,12 +3,12 @@ import TeamAccordion from "@/components/TeamAccordion/TeamAccordion";
 import { getEmployees } from "@/utils/api/employees";
 
 const page = async () => {
-  const empolyees = await getEmployees();
+  const employees = await getEmployees();
 
   return (
     <section>
-      <HeaderTeam />
-      <TeamAccordion employees={empolyees} />
+      <HeaderTeam employees={employees} />
+      <TeamAccordion employees={employees} />
     </section>
   );
 };

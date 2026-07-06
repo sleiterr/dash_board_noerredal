@@ -1,7 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
-import type { EmployeeStatus } from "@/lib/types";
 import { supabase } from "@/utils/supabase";
-import type { Employee } from "@/lib/types";
+import type { Employee, EmployeeStatus } from "@/lib/types";
 
 // Map the database row to the Employee type
 function mapEmployee(row: EmployeeRow): Employee {
@@ -27,6 +26,22 @@ export async function getEmployees(): Promise<Employee[]> {
 
   if (error) throw error;
   return (data ?? []).map(mapEmployee);
+}
+
+// Get the count of employees by their status
+export function getEmployeeStatusCounts(
+  employees: Employee[],
+): Record<EmployeeStatus, number> {
+  return employees.reduce(
+    (acc, emp) => {
+      acc[emp.status] += 1;
+      return acc;
+    },
+    { present: 0, absent: 0, late: 0, sick: 0 } as Record<
+      EmployeeStatus,
+      number
+    >,
+  );
 }
 
 // Update employee status
