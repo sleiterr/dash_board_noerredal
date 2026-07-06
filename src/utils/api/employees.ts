@@ -74,7 +74,63 @@ export async function updateEmployee(
   if (error) throw error;
 }
 
-// Partial<Omit<Employee, "id">> is used to allow updates to any property of the Employee type except for the id, which should remain unchanged. This ensures that when updating an employee's information, the unique identifier (id) is not modified, maintaining data integrity in the database.
+//! Partial<Omit<Employee, "id">> is used to allow updates to any property of the Employee type except for the id, which should remain unchanged. This ensures that when updating an employee's information, the unique identifier (id) is not modified, maintaining data integrity in the database.
+
+// Insert a new employee into the database and return the created record
+export async function createEmployee(person: {
+  fullName: string;
+  role: string;
+  location: string;
+  phone: string;
+  email: string;
+  color: Employee["color"];
+}): Promise<Employee> {
+  const { data, error } = await supabase
+    .from("employees")
+    .insert({
+      full_name: person.fullName,
+      role: person.role,
+      location: person.location,
+      phone: person.phone,
+      email: person.email,
+      color: person.color,
+      status: "present", // Default status for new employees
+    })
+    .select("*")
+    .single();
+
+  if (error) throw error;
+  return mapEmployee(data);
+}
+
+export async function updateEmpoyeeStatus(
+  employeeId: string,
+  updates: Partial<{
+    fullName: string;
+    role: string;
+    location: string;
+    phone: string;
+    email: string;
+    color: Employee["color"];
+  }>,
+): Promise<void> {
+  const dbUpdates: Record<string, unknown> = {};
+
+  // Map the updates to the database column names
+  if (updates.fullName !== undefined) dbUpdates.full_name = updates.fullName;
+  if (updates.role !== undefined) dbUpdates.role = updates.role;
+  if (updates.location !== undefined) dbUpdates.location = updates.location;
+  if (updates.phone !== undefined) dbUpdates.phone = updates.phone;
+  if (updates.email !== undefined) dbUpdates.email = updates.email;
+  if (updates.color !== undefined) dbUpdates.color = updates.color;
+
+  // Update the employee in the database
+  const { error } = await supabase
+    .from("employees")
+    .update(dbUpdates)
+    .eq("id", employeeId);
+  if (error) throw error;
+}
 
 type EmployeeRow = {
   id: string;

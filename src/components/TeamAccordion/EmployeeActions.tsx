@@ -8,12 +8,19 @@ import { deleteEmployeeAction } from "@/app/actions/employees";
 
 import ConfirmDelete from "./ConfirmDelete";
 
-const EmployeeActions = ({ employee }: { employee: Employee }) => {
+const EmployeeActions = ({
+  employee,
+  onEditClick,
+}: {
+  employee: Employee;
+  onEditClick: () => void;
+}) => {
   const [islOpen, setIsOpen] = useState(false);
 
   // Function to handle the edit action
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
+    onEditClick(); // Call the onEditClick prop to set the editingId in the parent component
   };
 
   // Function to handle the delete action

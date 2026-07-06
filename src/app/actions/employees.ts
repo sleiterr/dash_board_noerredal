@@ -5,8 +5,10 @@ import {
   deleteEmployee,
   updateEmployee,
   updateEmployeeStatus,
+  createEmployee,
 } from "@/utils/api/employees";
 import type { Employee, EmployeeStatus } from "@/lib/types";
+import { supabase } from "@/utils/supabase";
 
 //? This function is a server action that updates the status of an employee and revalidates the cache for the team dashboard page.
 export async function setEmployeeStatusAction(
@@ -23,11 +25,31 @@ export async function deleteEmployeeAction(employeeId: string) {
   revalidatePath("/dashboard/team");
 }
 
-//? This function is a server action that updates an employee's information and revalidates the cache for the team dashboard page.
+//? This function is a server action that updates an employee's details and revalidates the cache for the team dashboard page.
 export async function updateEmployeeAction(
   employeeId: string,
-  updates: Partial<Omit<Employee, "id">>,
+  updates: Partial<{
+    fullName: string;
+    role: string;
+    location: string;
+    phone: string;
+    email: string;
+    color: Employee["color"];
+  }>,
 ) {
   await updateEmployee(employeeId, updates);
+  revalidatePath("/dashboard/team");
+}
+
+//? This function is a server action that creates a new employee and revalidates the cache for the team dashboard page.
+export async function createEmployeeAction(person: {
+  fullName: string;
+  role: string;
+  location: string;
+  phone: string;
+  email: string;
+  color: Employee["color"];
+}) {
+  await createEmployee(person);
   revalidatePath("/dashboard/team");
 }

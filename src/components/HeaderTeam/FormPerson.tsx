@@ -5,6 +5,7 @@ import { UserPlus } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
 
+import { createEmployeeAction } from "@/app/actions/employees";
 import { CardContent } from "@/components/ui/card";
 
 import FormInput from "./FormInput";
@@ -28,10 +29,19 @@ type PersonFormData = {
 export function FormPerson({ onClose, form }: FormPersonProps) {
   const [resetKey, setResetKey] = useState(0);
 
-  function onSubmit(data: PersonFormData) {
-    toast("Person Added!", {
-      description: `Full Name: ${data.fullName}, Role: ${data.role}, Location: ${data.location}, Phone: ${data.phone}, Color: ${data.color}`,
-    });
+  async function onSubmit(data: PersonFormData) {
+    try {
+      await createEmployeeAction(data);
+      toast("Person Added!", {
+        description: `Full Name: ${data.fullName}, Role: ${data.role}, Location: ${data.location}, Phone: ${data.phone}, Color: ${data.color}`,
+      });
+      form.reset();
+      onClose();
+    } catch (error) {
+      toast.error("Failed to add person. Please try again.", {
+        description: "Please try again later.",
+      });
+    }
   }
 
   return (

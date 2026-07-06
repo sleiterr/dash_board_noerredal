@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import clsx from "clsx";
 import type { Employee } from "@/lib/types";
 import {
@@ -12,18 +15,29 @@ import StatusFilter from "./StatusFilter";
 import InfoStatus from "./InfoStatus";
 import EmployeeAvatar from "./EmployeeAvatar";
 import EmployeeActions from "./EmployeeActions";
+import EditPersonForm from "./EditPersonForm";
 
 const TeamAccordion = ({ employees }: TeamAccordionProps) => {
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [openValue, setOpenValue] = useState<string>("");
+
+  const handleEditClick = (employeeId: string) => {
+    setEditingId(employeeId);
+    setOpenValue(employeeId);
+  };
+
   return (
     <div className="p-4">
       <Accordion
         type="single"
         collapsible
+        value={openValue}
+        onValueChange={setOpenValue}
         className="max-w-full w-full flex-col gap-4"
       >
         {employees.map((employee) => (
           <AccordionItem
-            key={employee.id}
+            key={`${employee.id}-${editingId === employee.id ? "editing" : "viewing"}`}
             value={employee.id}
             className="bg-white border-none rounded-2xl shadow-sm"
           >
@@ -56,11 +70,22 @@ const TeamAccordion = ({ employees }: TeamAccordionProps) => {
               <div className="flex items-center gap-3">
                 <StatusFilter employee={employee} />
 
-                <EmployeeActions employee={employee} />
+                <EmployeeActions
+                  employee={employee}
+                  onEditClick={() => handleEditClick(employee.id)}
+                />
               </div>
             </AccordionTrigger>
             <AccordionContent className="border-t border-accordion-border px-4 pt-4 pb-4">
-              <TeamContact employee={employee} />
+              {editingId === employee.id ? (
+                <EditPersonForm
+                  employee={employee}
+                  onCancel={() => setEditingId(null)}
+                  onSave={() => setEditingId(null)}
+                />
+              ) : (
+                <TeamContact employee={employee} />
+              )}
             </AccordionContent>
           </AccordionItem>
         ))}
