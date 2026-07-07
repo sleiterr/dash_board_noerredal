@@ -8,6 +8,24 @@
 @import "../styles/variables.css";
 @import "../styles/accordion.css";
 
+/* Sidebar mini-calendar: dot indicator for days with events */
+.day-has-event {
+  position: relative;
+}
+
+.day-has-event::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--color-calendar-toggle);
+  opacity: 0.75;
+}
+
 :root {
   --background-color: #EDE8D5;
   --text-primary: #16261B;

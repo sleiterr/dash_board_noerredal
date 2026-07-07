@@ -1,5 +1,6 @@
 import { supabase } from "@/utils/supabase";
 
+// Fetch all tasks from the database
 export async function getTasks() {
   const { data, error } = await supabase
     .from("tasks")
@@ -13,6 +14,7 @@ export async function getTasks() {
   return data ?? [];
 }
 
+// Create a new task in the database
 export async function createTask(payload: {
   title: string;
   employee_id: string | null;

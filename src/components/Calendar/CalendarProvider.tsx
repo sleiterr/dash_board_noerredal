@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useCalendarApp } from "@schedule-x/react";
 import {
   createViewDay,
@@ -11,6 +12,7 @@ import {
 import { createEventModalPlugin } from "@schedule-x/event-modal";
 import { createDragAndDropPlugin } from "@schedule-x/drag-and-drop";
 import CalendarContext from "./CalendarContext";
+import { getTasksAction } from "@/app/actions/tasks";
 import "temporal-polyfill/global";
 
 const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
@@ -23,25 +25,33 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
       createViewMonthAgenda(),
       createViewDay(),
     ],
-
-    events: [
-      {
-        id: "1",
-        title: "Team Meeting",
-        start: Temporal.ZonedDateTime.from(
-          "2026-06-28T12:00:00+02:00[Europe/Copenhagen]",
-        ),
-        end: Temporal.ZonedDateTime.from(
-          "2026-06-28T15:00:00+02:00[Europe/Copenhagen]",
-        ),
-      },
-    ],
-
-    // @ts-ignore
-    timezone: "Europe/Copenhagen",
-    selectedDate: Temporal.PlainDate.from("2026-06-28"),
+    events: [],
+    selectedDate: Temporal.Now.plainDateISO("Europe/Copenhagen"),
     plugins: [createEventModalPlugin(), createDragAndDropPlugin()],
   });
+
+  // Load real tasks from DB on mount
+  useEffect(() => {
+    if (!calendar) return;
+    getTasksAction()
+      .then((tasks) => {
+        const events = tasks.map((task) => ({
+          id: String(task.id),
+          title: task.title ?? "Untitled",
+          start: Temporal.PlainDateTime.from(
+            task.start_at.replace(" ", "T"),
+          ).toZonedDateTime("Europe/Copenhagen"),
+          end: Temporal.PlainDateTime.from(
+            task.end_at.replace(" ", "T"),
+          ).toZonedDateTime("Europe/Copenhagen"),
+          // Custom prop — picked up by CalendarEventTile for color styling
+          employeeColor:
+            (task.employee as { color?: string } | null)?.color ?? null,
+        }));
+        calendar.events.set(events);
+      })
+      .catch(console.error);
+  }, [calendar]);
 
   if (!calendar) {
     return null;

@@ -13,6 +13,8 @@ import { CardContent } from "@/components/ui/card";
 import FormDatePicker from "./FormDatePicker";
 import EmployeePicker from "./EmployeePicker";
 import { getEmployeesAction } from "@/app/actions/employees";
+import { createTaskAction } from "@/app/actions/tasks";
+import { useCalendar } from "@/components/Calendar/CalendarContext";
 import type { Employee } from "@/lib/types";
 
 const formSchema = z.object({
@@ -27,6 +29,7 @@ const formSchema = z.object({
 });
 
 export function FormEvent({ onClose }: { onClose: () => void }) {
+  const { calendar } = useCalendar();
   const [employees, setEmployees] = useState<Employee[]>([]);
 
   useEffect(() => {
@@ -49,15 +52,43 @@ export function FormEvent({ onClose }: { onClose: () => void }) {
     form.trigger();
   }, [form]);
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    const startDate = format(data.dateRange.from, "yyyy-MM-dd");
-    const endDate = data.dateRange.to
-      ? format(data.dateRange.to, "yyyy-MM-dd")
-      : startDate; // if one day event, endDate is the same as startDate
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      const startDate = format(data.dateRange.from, "yyyy-MM-dd");
+      const endDate = data.dateRange.to
+        ? format(data.dateRange.to, "yyyy-MM-dd")
+        : startDate;
 
-    toast("Event created!", {
-      description: `"${data.title}" scheduled for ${startDate} → ${endDate} from ${data.startTime} to ${data.endTime}.`,
-    });
+      const start_at = `${startDate}T${data.startTime}:00`;
+      const end_at = `${endDate}T${data.endTime}:00`;
+
+      // Save to database
+      const task = await createTaskAction({
+        title: data.title,
+        employee_id: data.employeeId ?? null,
+        start_at,
+        end_at,
+      });
+
+      // Add to calendar UI immediately (no page reload needed)
+      calendar.events.add({
+        id: String(task.id),
+        title: data.title,
+        start:
+          Temporal.PlainDateTime.from(start_at).toZonedDateTime(
+            "Europe/Copenhagen",
+          ),
+        end: Temporal.PlainDateTime.from(end_at).toZonedDateTime(
+          "Europe/Copenhagen",
+        ),
+      });
+
+      toast.success(`"${data.title}" added to calendar!`);
+      form.reset();
+      onClose();
+    } catch {
+      toast.error("Failed to create event. Please try again.");
+    }
   }
 
   return (

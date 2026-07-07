@@ -52,6 +52,12 @@
     position: relative;
 }
 
+/* Selected date highlight — schedule-x already adds .is-selected automatically */
+.sx__month-grid-day.is-selected {
+    background-color: var(--color-data-hover-primary);
+    transition: background-color 0.2s ease;
+}
+
 .sx__month-grid-day__header-day-name {
     position: absolute;
     top: -30px;
