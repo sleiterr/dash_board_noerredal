@@ -44,9 +44,12 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
           end: Temporal.PlainDateTime.from(
             task.end_at.replace(" ", "T"),
           ).toZonedDateTime("Europe/Copenhagen"),
-          // Custom prop — picked up by CalendarEventTile for color styling
+          // Custom props — picked up by CalendarEventTile for color/avatar styling
           employeeColor:
-            (task.employee as { color?: string } | null)?.color ?? null,
+            (task.employee as { color?: string; full_name?: string } | null)
+              ?.color ?? null,
+          employeeName:
+            (task.employee as { full_name?: string } | null)?.full_name ?? null,
         }));
         calendar.events.set(events);
       })

@@ -5,8 +5,10 @@ import { Bell, Plus, CalendarDays } from "lucide-react";
 import CalendarViewSwitcher from "./CalendarViewSwitcher";
 import ModalNewEvent from "./ModalNewEvent";
 import EventStats from "./EventStats";
+import TeamAvatarStrip from "./TeamAvatarStrip";
+import { Employee } from "@/lib/types";
 
-const Header = () => {
+const Header = ({ employees }: HeaderProps) => {
   const [islOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,15 +19,17 @@ const Header = () => {
             <CalendarDays className="h-5 w-5 text-secondary" />
           </div>
           <p className="font-bold text-sm text-quinary tracking-wide">
-            Nørredal
+            TeamsDash
           </p>
         </div>
         <CalendarViewSwitcher />
       </div>
 
-      <div className="flex items-center gap-2">
-        <div className=""></div>
-        <div className=""></div>
+      <div className="flex items-center gap-3">
+        <div className="">
+          <TeamAvatarStrip employees={employees} />
+        </div>
+        <div className="w-px h-6 bg-strip" />
         <div className="">
           <EventStats />
         </div>
@@ -53,3 +57,7 @@ const Header = () => {
 };
 
 export default Header;
+
+type HeaderProps = {
+  employees: Employee[];
+};
