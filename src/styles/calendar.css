@@ -115,3 +115,15 @@
     padding-left: var(--sx-spacing-padding2);
     padding-right: var(--sx-spacing-padding2);
 }
+
+/* Monthly */
+.sx__month-grid-day__events-more {
+    font-size: 12px;
+    color: var(--color-quaternary);
+    border-radius: 4px;
+}
+
+.sx__month-grid-day__events-more:hover {
+    background-color: var(--color-grid-day-hover);
+    color: var(--color-cta-modal-hover);
+}

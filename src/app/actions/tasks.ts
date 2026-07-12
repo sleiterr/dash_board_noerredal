@@ -1,7 +1,8 @@
+// tasks.ts
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createTask, getTasks } from "@/utils/api/tasks";
+import { createTask, getTasks, deleteTask } from "@/utils/api/tasks";
 
 // Create a new task/event and revalidate the dashboard
 export async function createTaskAction(payload: {
@@ -19,4 +20,10 @@ export async function createTaskAction(payload: {
 // Fetch all tasks — used by client components via server action
 export async function getTasksAction() {
   return getTasks();
+}
+
+// Delete a task and revalidate the dashboard
+export async function deleteTaskAction(taskId: string) {
+  await deleteTask(taskId);
+  revalidatePath("/dashboard");
 }

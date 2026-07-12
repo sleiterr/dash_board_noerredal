@@ -5,6 +5,14 @@ import "temporal-polyfill/global";
 import { useCalendar } from "./CalendarContext";
 import { ScheduleXCalendar } from "@schedule-x/react";
 import CalendarEventTile from "./CalendarEventTile";
+import CustomEventModal from "./CustomEventModal";
+
+// Custom components for the calendar, including the event modal
+const customComponents = {
+  eventModal: ({ calendarEvent }: { calendarEvent: any }) => (
+    <CustomEventModal calendarEvent={calendarEvent} />
+  ),
+};
 
 const CalendarDashboard = ({}) => {
   const { calendar } = useCalendar();
@@ -17,6 +25,7 @@ const CalendarDashboard = ({}) => {
         calendarApp={calendar}
         customComponents={{
           monthGridEvent: CalendarEventTile,
+          ...customComponents,
         }}
       />
     </section>

@@ -29,7 +29,7 @@ const CalendarEventTile = ({
       className={clsx(
         "w-full truncate rounded-md px-1.5 py-0.5 text-xs font-medium",
         "transition-opacity duration-150 cursor-pointer",
-        "flex items-center gap-1", // ← цей рядок пропущений, додай назад
+        "flex items-center gap-1",
         ec ? [ec.bgClass, ec.textClass] : "bg-zinc-200 text-zinc-700",
         !hasStartDate && "opacity-70",
       )}

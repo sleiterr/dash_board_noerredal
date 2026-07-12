@@ -29,7 +29,7 @@ const formSchema = z.object({
 });
 
 export function FormEvent({ onClose }: { onClose: () => void }) {
-  const { calendar } = useCalendar();
+  const { refetchTasks } = useCalendar();
   const [employees, setEmployees] = useState<Employee[]>([]);
 
   useEffect(() => {
@@ -63,25 +63,26 @@ export function FormEvent({ onClose }: { onClose: () => void }) {
       const end_at = `${endDate}T${data.endTime}:00`;
 
       // Save to database
-      const task = await createTaskAction({
+      await createTaskAction({
         title: data.title,
         employee_id: data.employeeId ?? null,
         start_at,
         end_at,
       });
 
+      await refetchTasks();
       // Add to calendar UI immediately (no page reload needed)
-      calendar.events.add({
-        id: String(task.id),
-        title: data.title,
-        start:
-          Temporal.PlainDateTime.from(start_at).toZonedDateTime(
-            "Europe/Copenhagen",
-          ),
-        end: Temporal.PlainDateTime.from(end_at).toZonedDateTime(
-          "Europe/Copenhagen",
-        ),
-      });
+      // calendar.events.add({
+      //   id: String(task.id),
+      //   title: data.title,
+      //   start:
+      //     Temporal.PlainDateTime.from(start_at).toZonedDateTime(
+      //       "Europe/Copenhagen",
+      //     ),
+      //   end: Temporal.PlainDateTime.from(end_at).toZonedDateTime(
+      //     "Europe/Copenhagen",
+      //   ),
+      // });
 
       toast.success(`"${data.title}" added to calendar!`);
       form.reset();
