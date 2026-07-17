@@ -1,32 +1,54 @@
 // components/Calendar/CustomEventModal.tsx
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { useCalendar } from "./CalendarContext";
+
 import { deleteTaskAction } from "@/app/actions/tasks";
 import { formatEventTime } from "@/utils/formatEventTime";
 
-const CustomEventModal = ({ calendarEvent }: { calendarEvent: any }) => {
+import { toast } from "sonner";
+import ConfirmEventDelete from "./ConfirmEventDelete";
+import EventBtn from "./EventBtn";
+import ModalNewEvent from "@/components/Header/ModalNewEvent";
+
+const CustomEventModal = ({ calendarEvent }: CustomEventModalProps) => {
   const { eventModal, refetchTasks } = useCalendar();
+  const [islOpen, setIsOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleDelete = async () => {
-    await deleteTaskAction(calendarEvent.id);
-    await refetchTasks();
-    eventModal.close();
+    try {
+      await deleteTaskAction(calendarEvent.id);
+      await refetchTasks();
+      toast.success(`Event "${calendarEvent.title}" deleted successfully.`);
+    } catch {
+      toast.error("Failed to delete the event.");
+    } finally {
+      eventModal.close();
+      setIsOpen(false);
+    }
   };
+
+  if (isEditing) {
+    return (
+      <ModalNewEvent
+        task={calendarEvent}
+        onClose={() => {
+          setIsEditing(false);
+          eventModal.close();
+        }}
+      />
+    );
+  }
 
   return (
     <div className="p-4 bg-white rounded-xl shadow-lg min-w-70">
       <div className="flex gap-3 items-center justify-end">
-        <button className="flex items-center gap-1 text-xs">
-          <Pencil className="h-3.5 w-3.5" /> Edit
-        </button>
-        <button
-          onClick={handleDelete}
-          className="flex items-center gap-1 text-xs text-red-600 cursor-pointer"
-        >
-          <Trash2 className="h-3.5 w-3.5" /> Delete
-        </button>
+        <EventBtn
+          setIsOpen={setIsOpen}
+          onEditClick={() => setIsEditing(true)}
+        />
       </div>
       <div className="">
         <h4 className="font-semibold text-base">{calendarEvent.title}</h4>
@@ -37,8 +59,27 @@ const CustomEventModal = ({ calendarEvent }: { calendarEvent: any }) => {
           {formatEventTime(calendarEvent.start, calendarEvent.end)}
         </span>
       </div>
+      {islOpen && (
+        <ConfirmEventDelete
+          eventTitle={calendarEvent.title}
+          onConfirm={handleDelete}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
     </div>
   );
 };
 
 export default CustomEventModal;
+
+type CustomEventModalProps = {
+  calendarEvent: {
+    id: string;
+    title: string;
+    employeeName?: string | null;
+    employeeId?: string | null;
+    start: Temporal.ZonedDateTime;
+    end: Temporal.ZonedDateTime;
+    [key: string]: unknown;
+  };
+};

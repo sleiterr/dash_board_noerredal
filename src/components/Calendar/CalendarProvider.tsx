@@ -15,6 +15,8 @@ import { createDragAndDropPlugin } from "@schedule-x/drag-and-drop";
 
 import CalendarContext from "./CalendarContext";
 import { getTasksAction } from "@/app/actions/tasks";
+// Import the updateTaskAction for updating events after drag-and-drop
+import { updateTaskAction } from "@/app/actions/tasks";
 import "temporal-polyfill/global";
 
 const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
@@ -23,6 +25,8 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
   const calendar = useCalendarApp({
     timezone: "Europe/Copenhagen",
     locale: "da-DK",
+    firstDayOfWeek: 1, // Monday use for the week view
+    showWeekNumbers: true,
     views: [
       createViewWeek(),
       createViewMonthGrid(),
@@ -32,6 +36,23 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
     events: [],
     selectedDate: Temporal.Now.plainDateISO("Europe/Copenhagen"),
     plugins: [eventModal, createDragAndDropPlugin()],
+    // Callback for when an event is updated (e.g., after drag-and-drop)
+    callbacks: {
+      onEventUpdate: async (event) => {
+        const start = event.start as Temporal.ZonedDateTime;
+        const end = event.end as Temporal.ZonedDateTime;
+        try {
+          await updateTaskAction(String(event.id), {
+            title: event.title ?? "Untitled",
+            employee_id: (event as any).employeeId ?? null,
+            start_at: start.toPlainDateTime().toString(),
+            end_at: end.toPlainDateTime().toString(),
+          });
+        } catch {
+          console.error("Failed to update event after drag-and-drop");
+        }
+      },
+    },
   });
 
   // Load real tasks from DB on mount
@@ -54,6 +75,7 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
           ?.color ?? null,
       employeeName:
         (task.employee as { full_name?: string } | null)?.full_name ?? null,
+      employeeId: task.employee_id ?? null,
     }));
     calendar.events.set(events);
   };

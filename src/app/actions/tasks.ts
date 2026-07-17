@@ -2,7 +2,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createTask, getTasks, deleteTask } from "@/utils/api/tasks";
+import {
+  createTask,
+  getTasks,
+  deleteTask,
+  updateTask,
+} from "@/utils/api/tasks";
 
 // Create a new task/event and revalidate the dashboard
 export async function createTaskAction(payload: {
@@ -26,4 +31,19 @@ export async function getTasksAction() {
 export async function deleteTaskAction(taskId: string) {
   await deleteTask(taskId);
   revalidatePath("/dashboard");
+}
+
+export async function updateTaskAction(
+  taskId: string,
+  playload: {
+    title: string;
+    employee_id: string | null;
+    start_at: string;
+    end_at: string;
+    description?: string;
+  },
+) {
+  const task = await updateTask(taskId, playload);
+  revalidatePath("/dashboard");
+  return task;
 }

@@ -1,13 +1,13 @@
 import { Modal } from "@/components/Modal/Modal";
 import { FormEvent } from "./FormEvent";
 
-const ModalNewEvent = ({ onClose }: ConfirmDeleteModalProps) => {
+const ModalNewEvent = ({ onClose, task }: ModalNewEventProps) => {
   return (
     <Modal show={true} onClose={onClose}>
       <div className="flex items-center justify-between mb-5">
         <div className="">
           <h4 className="font-medium text-lg text-modal-title">
-            Add New Event
+            {task ? "Edit Event" : "Add New Event"}
           </h4>
         </div>
         <div className="self-center">
@@ -31,7 +31,7 @@ const ModalNewEvent = ({ onClose }: ConfirmDeleteModalProps) => {
         </div>
       </div>
       <div className="flex flex-col">
-        <FormEvent onClose={onClose} />
+        <FormEvent onClose={onClose} task={task} />
       </div>
     </Modal>
   );
@@ -39,6 +39,13 @@ const ModalNewEvent = ({ onClose }: ConfirmDeleteModalProps) => {
 
 export default ModalNewEvent;
 
-type ConfirmDeleteModalProps = {
+type ModalNewEventProps = {
   onClose: () => void;
+  task?: {
+    id: string;
+    title: string;
+    start: { toPlainDate: () => any; toPlainTime: () => any };
+    end: { toPlainDate: () => any; toPlainTime: () => any };
+    employeeId?: string | null;
+  };
 };

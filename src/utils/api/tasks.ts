@@ -38,3 +38,25 @@ export async function deleteTask(taskId: string): Promise<void> {
 
   if (error) throw error;
 }
+
+// Update an existing task in the database
+export async function updateTask(
+  taskId: string,
+  payload: {
+    title: string;
+    employee_id: string | null;
+    start_at: string;
+    end_at: string;
+    description?: string;
+  },
+) {
+  const { data, error } = await supabase
+    .from("tasks")
+    .update(payload)
+    .eq("id", taskId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}

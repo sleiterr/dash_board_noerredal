@@ -13,7 +13,7 @@ import { CardContent } from "@/components/ui/card";
 import FormDatePicker from "./FormDatePicker";
 import EmployeePicker from "./EmployeePicker";
 import { getEmployeesAction } from "@/app/actions/employees";
-import { createTaskAction } from "@/app/actions/tasks";
+import { createTaskAction, updateTaskAction } from "@/app/actions/tasks";
 import { useCalendar } from "@/components/Calendar/CalendarContext";
 import type { Employee } from "@/lib/types";
 
@@ -28,24 +28,37 @@ const formSchema = z.object({
   employeeId: z.string().nullable().optional(),
 });
 
-export function FormEvent({ onClose }: { onClose: () => void }) {
+export function FormEvent({ onClose, task }: FormEventProps) {
   const { refetchTasks } = useCalendar();
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const isEditMode = !!task;
 
+  // Fetch employees when the component mounts
   useEffect(() => {
     getEmployeesAction().then(setEmployees).catch(console.error);
   }, []);
 
+  // Initialize the form with react-hook-form and zod validation
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
-    defaultValues: {
-      title: "",
-      dateRange: undefined,
-      startTime: "",
-      endTime: "",
-      employeeId: null,
-    },
+    defaultValues: task
+      ? {
+          title: task.title,
+          dateRange: {
+            from: new Date(task.start.toPlainDate().toString()),
+          },
+          startTime: task.start.toPlainTime().toString().slice(0, 5),
+          endTime: task.end.toPlainTime().toString().slice(0, 5),
+          employeeId: task.employeeId ?? null,
+        }
+      : {
+          title: "",
+          dateRange: undefined,
+          startTime: "",
+          endTime: "",
+          employeeId: null,
+        },
   });
 
   useEffect(() => {
@@ -62,33 +75,37 @@ export function FormEvent({ onClose }: { onClose: () => void }) {
       const start_at = `${startDate}T${data.startTime}:00`;
       const end_at = `${endDate}T${data.endTime}:00`;
 
-      // Save to database
-      await createTaskAction({
-        title: data.title,
-        employee_id: data.employeeId ?? null,
-        start_at,
-        end_at,
-      });
+      if (isEditMode) {
+        await updateTaskAction(task!.id, {
+          title: data.title,
+          employee_id: data.employeeId ?? null,
+          start_at,
+          end_at,
+        });
+      } else {
+        await createTaskAction({
+          title: data.title,
+          employee_id: data.employeeId ?? null,
+          start_at,
+          end_at,
+        });
+      }
 
       await refetchTasks();
-      // Add to calendar UI immediately (no page reload needed)
-      // calendar.events.add({
-      //   id: String(task.id),
-      //   title: data.title,
-      //   start:
-      //     Temporal.PlainDateTime.from(start_at).toZonedDateTime(
-      //       "Europe/Copenhagen",
-      //     ),
-      //   end: Temporal.PlainDateTime.from(end_at).toZonedDateTime(
-      //     "Europe/Copenhagen",
-      //   ),
-      // });
 
-      toast.success(`"${data.title}" added to calendar!`);
+      toast.success(
+        isEditMode
+          ? `"${data.title}" updated in calendar!`
+          : `"${data.title}" added to calendar!`,
+      );
       form.reset();
       onClose();
     } catch {
-      toast.error("Failed to create event. Please try again.");
+      toast.error(
+        isEditMode
+          ? "Failed to update event. Please try again."
+          : "Failed to create event. Please try again.",
+      );
     }
   }
 
@@ -137,3 +154,14 @@ export function FormEvent({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
+type FormEventProps = {
+  onClose: () => void;
+  task?: {
+    id: string;
+    title: string;
+    start: { toPlainDate: () => any; toPlainTime: () => any };
+    end: { toPlainDate: () => any; toPlainTime: () => any };
+    employeeId?: string | null;
+  };
+};

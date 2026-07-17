@@ -45,13 +45,13 @@ const EmployeeActions = ({
     <div className="flex items-center gap-2">
       <button
         onClick={handleEdit}
-        className="cursor-pointer text-accordion-role hover:text-accordion-title"
+        className="cursor-pointer text-accordion-role hover:text-accordion-title transition duration-200 ease-in-out hover:scale-105"
       >
         <Pencil className="h-4 w-4" />
       </button>
       <button
         onClick={handleDelete}
-        className="cursor-pointer text-accordion-role hover:text-red-600"
+        className="cursor-pointer text-accordion-role hover:text-red-600 transition duration-200 ease-in-out hover:scale-105"
       >
         <Trash2 className="h-4 w-4" onClick={() => setIsOpen(true)} />
       </button>
