@@ -9,6 +9,12 @@ import CustomEventModal from "./CustomEventModal";
 
 // Custom components for the calendar, including the event modal
 const customComponents = {
+  monthGridEvent: (props: any) => (
+    <CalendarEventTile {...props} variant="month" />
+  ),
+  timeGridEvent: (props: any) => (
+    <CalendarEventTile {...props} variant="week" />
+  ), // Use the same tile for time grid events
   eventModal: ({ calendarEvent }: { calendarEvent: any }) => (
     <CustomEventModal calendarEvent={calendarEvent} />
   ),
@@ -23,10 +29,7 @@ const CalendarDashboard = ({}) => {
       <CalendarWeekdays />
       <ScheduleXCalendar
         calendarApp={calendar}
-        customComponents={{
-          monthGridEvent: CalendarEventTile,
-          ...customComponents,
-        }}
+        customComponents={customComponents}
       />
     </section>
   );
