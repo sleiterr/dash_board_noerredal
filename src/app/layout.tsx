@@ -3,7 +3,7 @@ import { DM_Sans, Fugaz_One } from "next/font/google";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Noerredal Farm Dashboard",
+  title: "Teams Dashboard",
   description:
     "A dashboard for Noerredal Farm built with Next.js and Tailwind CSS",
 };

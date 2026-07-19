@@ -5,6 +5,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import "temporal-polyfill/global";
 import { useCalendar } from "./CalendarContext";
 
+import { formatWeekRange } from "@/utils/formatWeekRange";
+
 const CalendarToolbar = () => {
   // Access the calendar context
   const { calendar } = useCalendar();
@@ -12,6 +14,10 @@ const CalendarToolbar = () => {
   // State to hold the current date
   const [currentDate, setCurrentDate] = useState<Temporal.PlainDate>(
     () => calendar.$app.datePickerState.selectedDate.value,
+  );
+
+  const [currentView, setCurrentView] = useState<string>(
+    () => calendar.$app.calendarState.view.value,
   );
 
   // Effect to update the time format in the week view and subscribe to view changes
@@ -30,9 +36,12 @@ const CalendarToolbar = () => {
     const timer = setTimeout(addTimeFormat, 100);
 
     // підписуємось на зміну view
-    const unsubscribe = calendar.$app.calendarState.view.subscribe(() => {
-      setTimeout(addTimeFormat, 100);
-    });
+    const unsubscribe = calendar.$app.calendarState.view.subscribe(
+      (view: string) => {
+        setCurrentView(view);
+        setTimeout(addTimeFormat, 100);
+      },
+    );
 
     return () => {
       clearTimeout(timer);
@@ -51,13 +60,16 @@ const CalendarToolbar = () => {
   }, [calendar]);
 
   // Format the current date to display the month and year in a readable format
-  const title = new Date(
-    currentDate.year,
-    currentDate.month - 1,
-  ).toLocaleString("da-DK", {
-    month: "long",
-    year: "numeric",
-  });
+  const title =
+    currentView === "week"
+      ? formatWeekRange(currentDate)
+      : new Date(currentDate.year, currentDate.month - 1).toLocaleString(
+          "da-DK",
+          {
+            month: "long",
+            year: "numeric",
+          },
+        );
 
   //! Function to change the month based on the direction (next or prev)
   const changeMonth = (direction: "next" | "prev") => {
@@ -77,7 +89,7 @@ const CalendarToolbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-5 py-3 bg-header-bg border-b border-header-border">
+    <header className="flex items-center justify-between px-5 py-3 bg-header-bg ">
       <div className="flex items-center justify-between w-full max-w-72.5">
         <button
           className="p-2 rounded-full hover:bg-cta-bg transition-colors duration-300 cursor-pointer"

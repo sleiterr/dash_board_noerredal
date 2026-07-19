@@ -27,6 +27,10 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
     locale: "da-DK",
     firstDayOfWeek: 1, // Monday use for the week view
     showWeekNumbers: true,
+    dayBoundaries: {
+      start: "05:00",
+      end: "18:00",
+    },
     views: [
       createViewWeek(),
       createViewMonthGrid(),

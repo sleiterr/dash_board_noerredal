@@ -137,8 +137,8 @@
     font-size: 14px;
     padding: 10px 6px;
 
-    background-color: #fff;
-    color: var(--color-quinary);
+    background-color: #F7F3EC;
+    color: var(--color-quaternary);
     border-right: 1px solid var(--color-header-border);
 
     min-width: fit-content;
@@ -147,4 +147,49 @@
 
 .sx__month-grid-week:first-child .sx__month-grid-week__week-number {
     padding: 10px 6px;
+}
+
+/*? Time axis (left hours column) in week/day view */
+
+.sx__week-grid__day-name {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--color-quaternary);
+
+    text-transform: uppercase;
+}
+
+.sx__week-grid__hour {
+    border-top: #EDE8D5 solid 1px;
+}
+
+.sx__week-grid__date-number {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-quinary);
+}
+
+/* background-color: #F7F3EC; */
+
+.sx__week-grid__date {
+    border-left: #EDE8D5 solid 1px;
+}
+
+/* #EDE8D5 */
+
+#calendar .sx__week-grid {
+    background-image: linear-gradient(to right,
+            #F7F3EC var(--sx-calendar-week-grid-padding-left),
+            transparent var(--sx-calendar-week-grid-padding-left));
+}
+
+
+.sx__week-grid__hour-text {
+    font-weight: 400;
+    font-size: 14px;
+
+    position: absolute;
+    left: -43px;
+    top: -0.75em;
+    color: var(--color-quaternary);
 }
