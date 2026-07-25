@@ -21,4 +21,6 @@ type CalendarContextType = {
   calendar: any; // Replace 'any' with the actual type of your calendar object
   refetchTasks: () => Promise<void>;
   eventModal: ReturnType<typeof createEventModalPlugin>;
+  hiddenEmployeeIds: Set<string>;
+  toggleEmployeeVisibility: (employeeId: string) => void;
 };

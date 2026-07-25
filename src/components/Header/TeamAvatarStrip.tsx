@@ -19,8 +19,8 @@ const TeamAvatarStrip = ({ employees }: TeamAvatarStripProps) => {
           </div>
         );
       })}
-      <span className="ml-2 text-xs text-farm-500 dark:text-[#6B8070] font-medium">
-        {activeEmployees.length} shown
+      <span className="font-medium text-xs text-farm-500 ml-2">
+        {activeEmployees.length} active
       </span>
     </div>
   );

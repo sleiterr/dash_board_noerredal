@@ -138,7 +138,7 @@
     padding: 10px 6px;
 
     background-color: #F7F3EC;
-    color: var(--color-quaternary);
+    color: var(--color-quinary);
     border-right: 1px solid var(--color-header-border);
 
     min-width: fit-content;
@@ -192,4 +192,9 @@
     left: -43px;
     top: -0.75em;
     color: var(--color-quaternary);
+}
+
+/* Day Grid_Day — background only in Daily view, not Weekly */
+.is-day-view .sx__time-grid-day {
+    background-color: var(--color-grid-day);
 }

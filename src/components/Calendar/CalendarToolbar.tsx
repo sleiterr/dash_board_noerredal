@@ -63,18 +63,31 @@ const CalendarToolbar = () => {
   const title =
     currentView === "week"
       ? formatWeekRange(currentDate)
-      : new Date(currentDate.year, currentDate.month - 1).toLocaleString(
-          "da-DK",
-          {
+      : currentView === "day"
+        ? new Date(
+            currentDate.year,
+            currentDate.month - 1,
+            currentDate.day,
+          ).toLocaleString("en-US", {
+            weekday: "long",
             month: "long",
+            day: "numeric",
             year: "numeric",
-          },
-        );
+          })
+        : new Date(currentDate.year, currentDate.month - 1).toLocaleString(
+            "da-DK",
+            { month: "long", year: "numeric" },
+          );
 
-  //! Function to change the month based on the direction (next or prev)
+  //! Function to change the period based on direction and current view
   const changeMonth = (direction: "next" | "prev") => {
     const amount = direction === "next" ? 1 : -1;
-    const newDate = currentDate.add({ months: amount });
+    const newDate =
+      currentView === "week"
+        ? currentDate.add({ weeks: amount })
+        : currentView === "day"
+          ? currentDate.add({ days: amount })
+          : currentDate.add({ months: amount });
 
     calendar.$app.datePickerState.selectedDate.value = newDate;
     calendar.$app.calendarState.setRange(newDate);
@@ -90,7 +103,7 @@ const CalendarToolbar = () => {
 
   return (
     <header className="flex items-center justify-between px-5 py-3 bg-header-bg ">
-      <div className="flex items-center justify-between w-full max-w-72.5">
+      <div className="flex items-center justify-between w-full max-w-90">
         <button
           className="p-2 rounded-full hover:bg-cta-bg transition-colors duration-300 cursor-pointer"
           type="button"

@@ -79,7 +79,10 @@
 
     /*? Time axis (left hours column) in week/day view */
     --color-week-grid-border: #EDE8D5;
+    --color-grid-day: rgba(247, 243, 236, 0.50);
     --color-bg-week-grid: #F7F3EC;
 
-
+    /*? DashboardWidgets-Team */
+    --color-team-list: #F7F3EC;
+    --color-hover-team-list: #EDE8D5;
 }

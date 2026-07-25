@@ -20,8 +20,28 @@ import { updateTaskAction } from "@/app/actions/tasks";
 import "temporal-polyfill/global";
 
 const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
+  // Initialize the event modal plugin for displaying event details
   const [eventModal] = useState(() => createEventModalPlugin());
+  // State to track hidden employee IDs for filtering events in the calendar
+  const [hiddenEmployeeIds, setHiddenEmployeeIds] = useState<Set<string>>(
+    new Set(),
+  );
 
+  // Function to toggle the visibility of an employee's events in the calendar
+  const toggleEmployeeVisibility = (employeeId: string) => {
+    setHiddenEmployeeIds((prev) => {
+      // Create a new Set to avoid mutating the previous state directly
+      const next = new Set(prev);
+      if (next.has(employeeId)) {
+        next.delete(employeeId);
+      } else {
+        next.add(employeeId);
+      }
+      return next;
+    });
+  };
+
+  // Initialize the calendar app with the specified configuration
   const calendar = useCalendarApp({
     timezone: "Europe/Copenhagen",
     locale: "da-DK",
@@ -64,36 +84,48 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
     if (!calendar) return;
     const tasks = await getTasksAction();
 
-    const events = tasks.map((task) => ({
-      id: String(task.id),
-      title: task.title ?? "Untitled",
-      start: Temporal.PlainDateTime.from(
-        task.start_at.replace(" ", "T"),
-      ).toZonedDateTime("Europe/Copenhagen"),
-      end: Temporal.PlainDateTime.from(
-        task.end_at.replace(" ", "T"),
-      ).toZonedDateTime("Europe/Copenhagen"),
-      // Custom props — picked up by CalendarEventTile for color/avatar styling
-      employeeColor:
-        (task.employee as { color?: string; full_name?: string } | null)
-          ?.color ?? null,
-      employeeName:
-        (task.employee as { full_name?: string } | null)?.full_name ?? null,
-      employeeId: task.employee_id ?? null,
-    }));
+    const events = tasks
+      // filter out tasks that belong to hidden employees
+      .filter(
+        (task) => !task.employee_id || !hiddenEmployeeIds.has(task.employee_id),
+      )
+      // map the tasks to the format expected by the calendar
+      .map((task) => ({
+        id: String(task.id),
+        title: task.title ?? "Untitled",
+        start: Temporal.PlainDateTime.from(
+          task.start_at.replace(" ", "T"),
+        ).toZonedDateTime("Europe/Copenhagen"),
+        end: Temporal.PlainDateTime.from(
+          task.end_at.replace(" ", "T"),
+        ).toZonedDateTime("Europe/Copenhagen"),
+        // Custom props — picked up by CalendarEventTile for color/avatar styling
+        employeeColor:
+          (task.employee as { color?: string; full_name?: string } | null)
+            ?.color ?? null,
+        employeeName:
+          (task.employee as { full_name?: string } | null)?.full_name ?? null,
+        employeeId: task.employee_id ?? null,
+      }));
     calendar.events.set(events);
   };
 
   useEffect(() => {
     loadTasks();
-  }, [calendar]);
+  }, [calendar, hiddenEmployeeIds]);
 
   if (!calendar) {
     return null;
   }
   return (
     <CalendarContext.Provider
-      value={{ calendar, refetchTasks: loadTasks, eventModal }}
+      value={{
+        calendar,
+        refetchTasks: loadTasks,
+        eventModal,
+        hiddenEmployeeIds,
+        toggleEmployeeVisibility,
+      }}
     >
       {children}
     </CalendarContext.Provider>
