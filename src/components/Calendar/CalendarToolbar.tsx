@@ -102,7 +102,7 @@ const CalendarToolbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-5 py-3 bg-header-bg ">
+    <header className="flex items-center justify-between px-5 py-3 bg-header-bg  border-b border-header-border">
       <div className="flex items-center justify-between w-full max-w-90">
         <button
           className="p-2 rounded-full hover:bg-cta-bg transition-colors duration-300 cursor-pointer"

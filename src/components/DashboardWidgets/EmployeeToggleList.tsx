@@ -11,7 +11,7 @@ const EmployeeToggleList = ({ employees }: EmployeeToggleListProps) => {
   const { hiddenEmployeeIds, toggleEmployeeVisibility } = useCalendar();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-1 w-full">
+    <div className="flex flex-col items-center gap-2 w-full">
       {employees.map((emp) => {
         const colors = EVENT_COLOR_DATA[emp.color];
         const isActive = !hiddenEmployeeIds.has(emp.id);

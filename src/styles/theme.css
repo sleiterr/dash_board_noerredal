@@ -25,6 +25,8 @@
     --color-cta-link-active: #2D4A35;
     --color-strip: #EDE8D5;
 
+    --color-day-event: #A89B7A;
+
     /*? ModalEvent */
     --color-modal-event-bg: #ffffff;
     --color-modal-icon-close: #8B6F5E;
@@ -85,4 +87,5 @@
     /*? DashboardWidgets-Team */
     --color-team-list: #F7F3EC;
     --color-hover-team-list: #EDE8D5;
+    --color-widget-role: #A89B7A;
 }

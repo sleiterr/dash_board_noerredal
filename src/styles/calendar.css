@@ -43,17 +43,39 @@
 
 #calendar .sx-react-calendar-wrapper {
     height: 100%;
+    border-top: none;
 }
 
 #calendar .sx__calendar {
     height: 100%;
+    border: none;
+}
+
+/*? Sidebar mini-calendar: dot indicator for days with events */
+
+.day-has-event {
+    position: relative;
+}
+
+.day-has-event::after {
+    content: "";
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-day-event);
+    opacity: 0.75;
 }
 
 .sx__month-grid-day__header {
     position: relative;
 }
 
-/* Selected date highlight — schedule-x already adds .is-selected automatically */
+/*? Selected date highlight — schedule-x already adds .is-selected automatically */
+
 .sx__month-grid-day.is-selected {
     background-color: var(--color-data-hover-primary);
     transition: background-color 0.2s ease;
@@ -66,13 +88,9 @@
     transform: translateX(-50%);
 }
 
-/*  */
-
 .sx__calendar-header {
     display: none;
 }
-
-/*  */
 
 .calendar-weekdays {
     display: grid;
@@ -167,6 +185,9 @@
     font-weight: 500;
     font-size: 14px;
     color: var(--color-quinary);
+
+    height: 2.5em;
+    width: 2.5em;
 }
 
 /* background-color: #F7F3EC; */

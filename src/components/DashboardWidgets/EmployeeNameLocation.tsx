@@ -8,7 +8,7 @@ function getFirstName(fullName: string): string {
 
 const EmployeeNameLocation = ({ employee }: { employee: Employee }) => {
   return (
-    <div className="flex flex-col items-start justify-center gap-0.5">
+    <div className="flex flex-col items-start justify-center flex-1 min-w-0">
       <h4 className="font-semibold text-xs text-team-title">
         {getFirstName(employee.fullName)}
       </h4>

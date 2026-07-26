@@ -16,7 +16,3 @@ const ActiveEmployeesBadge = ({ totalCount }: { totalCount: number }) => {
 };
 
 export default ActiveEmployeesBadge;
-
-type ActiveEmployeesBadgeProps = {
-  totalCount: number;
-};
