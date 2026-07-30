@@ -9,13 +9,6 @@ import { House, Calendar, Users, Settings } from "lucide-react";
 
 const sidebarLinks: MenuLinks[] = [
   {
-    title: "Home",
-    href: "/",
-    classTitle:
-      "font-medium text-xl text-tertiary group-hove/sidebar::text-secondary transition-colors duration-300",
-    icon: House,
-  },
-  {
     title: "Calendar",
     href: "/dashboard",
     classTitle:
@@ -31,7 +24,7 @@ const sidebarLinks: MenuLinks[] = [
   },
   {
     title: "Settings",
-    href: "/",
+    href: "/settings",
     classTitle:
       "font-medium text-xl text-tertiary group-hover/sidebar:text-secondary transition-colors duration-300",
     icon: Settings,
