@@ -2,11 +2,6 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-interface PasswordInputProps {
-  value: string;
-  onChange: (value: string) => void;
-}
-
 export default function PasswordInput({ value, onChange }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
 
@@ -29,4 +24,8 @@ export default function PasswordInput({ value, onChange }: PasswordInputProps) {
       </button>
     </div>
   );
+}
+interface PasswordInputProps {
+  value: string;
+  onChange: (value: string) => void;
 }

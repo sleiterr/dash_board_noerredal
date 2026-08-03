@@ -26,6 +26,9 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
   const [hiddenEmployeeIds, setHiddenEmployeeIds] = useState<Set<string>>(
     new Set(),
   );
+  const [isNewEventModalOpen, setIsNewEventModalOpen] = useState(false);
+  const openNewEventModal = () => setIsNewEventModalOpen(true);
+  const closeNewEventModal = () => setIsNewEventModalOpen(false);
 
   // Function to toggle the visibility of an employee's events in the calendar
   const toggleEmployeeVisibility = (employeeId: string) => {
@@ -125,6 +128,9 @@ const CalendarProvider = ({ children }: { children: React.ReactNode }) => {
         eventModal,
         hiddenEmployeeIds,
         toggleEmployeeVisibility,
+        isNewEventModalOpen,
+        openNewEventModal,
+        closeNewEventModal,
       }}
     >
       {children}

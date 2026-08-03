@@ -9,9 +9,12 @@ import { useCalendar } from "./CalendarContext";
 import { ScheduleXCalendar } from "@schedule-x/react";
 import CalendarEventTile from "./CalendarEventTile";
 import CustomEventModal from "./CustomEventModal";
+import MonthGridDateCell from "./MonthGridDateCell";
+import ModalNewEvent from "@/components/Header/ModalNewEvent";
 
 // Custom components for the calendar, including the event modal
 const customComponents = {
+  monthGridDate: MonthGridDateCell,
   monthGridEvent: (props: any) => (
     <CalendarEventTile {...props} variant="month" />
   ),
@@ -24,7 +27,7 @@ const customComponents = {
 };
 
 const CalendarDashboard = ({}) => {
-  const { calendar } = useCalendar();
+  const { calendar, isNewEventModalOpen, closeNewEventModal } = useCalendar();
 
   useEffect(() => {
     // Highlight the current day column in the week views
@@ -70,6 +73,7 @@ const CalendarDashboard = ({}) => {
         calendarApp={calendar}
         customComponents={customComponents}
       />
+      {isNewEventModalOpen && <ModalNewEvent onClose={closeNewEventModal} />}
     </section>
   );
 };

@@ -23,4 +23,7 @@ type CalendarContextType = {
   eventModal: ReturnType<typeof createEventModalPlugin>;
   hiddenEmployeeIds: Set<string>;
   toggleEmployeeVisibility: (employeeId: string) => void;
+  isNewEventModalOpen: boolean;
+  openNewEventModal: () => void;
+  closeNewEventModal: () => void;
 };

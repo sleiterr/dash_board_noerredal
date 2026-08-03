@@ -74,8 +74,19 @@
     position: relative;
 }
 
+.month-grid-add-btn {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.sx__month-grid-day:hover .month-grid-add-btn {
+    opacity: 1;
+}
+
 /*? Selected date highlight — schedule-x already adds .is-selected automatically */
 
+/* sx__month-grid-day:hover use for  */
+.sx__month-grid-day:hover,
 .sx__month-grid-day.is-selected {
     background-color: var(--color-data-hover-primary);
     transition: background-color 0.2s ease;
