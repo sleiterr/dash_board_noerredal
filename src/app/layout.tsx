@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Fugaz_One } from "next/font/google";
+import { Toaster } from "sonner";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" className={`${dmSans.variable} h-full antialiased`}>
       <body className="h-full flex flex-col" suppressHydrationWarning>
         {children}
+        <Toaster />
       </body>
     </html>
   );

@@ -1,8 +1,9 @@
 "use client";
-import Link from "next/link";
+
 import { useState } from "react";
 import clsx from "clsx";
 import SidebarMenuItems from "@/components/AppSIdebar/sidebar-menu-items";
+import ProfileFooter from "./ProfileFooter";
 
 import {
   Sidebar,
@@ -15,7 +16,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-import { Leaf, LogOut, PanelLeft } from "lucide-react";
+import { Leaf, PanelLeft } from "lucide-react";
 
 export function AppSidebar() {
   const { open, setOpen } = useSidebar();
@@ -83,37 +84,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="border-t border-footer-border p-0! pt-4! mx-4!">
-        <div
-          className={clsx(
-            "flex items-center justify-between",
-            open ? "gap-4" : "justify-center",
-          )}
-        >
-          <div
-            className={clsx(
-              "flex items-center",
-              open ? "gap-4" : "justify-center",
-            )}
-          >
-            <div
-              className={clsx(
-                "size-10 shrink-0 bg-icon-bg rounded-full shadow-md flex items-center justify-center",
-              )}
-            ></div>
-            {open && (
-              <h4 className="font-medium text-lg text-footer">My Profile</h4>
-            )}
-          </div>
-
-          {open && (
-            <Link
-              href="/login"
-              className="text-tertiary hover:text-secondary transition-colors"
-            >
-              <LogOut className="size-5" />
-            </Link>
-          )}
-        </div>
+        <ProfileFooter open={open} />
       </SidebarFooter>
     </Sidebar>
   );

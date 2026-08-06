@@ -3,9 +3,13 @@
 import { Eye } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+
+import { toast } from "sonner";
 import * as z from "zod";
 import LoginSubmit from "./LoginSubmit";
 import FormInput from "@/components/HeaderTeam/FormInput";
+import { loginAction } from "@/app/actions/auth";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email address"),
@@ -15,8 +19,11 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  const router = useRouter();
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -24,8 +31,16 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    console.log("submit...", values);
-    await new Promise((resolve) => setTimeout(resolve, 600)); // Simulate a delay
+    const result = await loginAction(values.email, values.password);
+    console.log("loginAction result:", result);
+
+    if (!result.success) {
+      toast.error(result.message ?? "Login failed");
+      return;
+    }
+
+    toast.success("Welcome back!");
+    router.push("/dashboard");
   };
 
   return (
@@ -67,5 +82,3 @@ export default function LoginForm() {
     </div>
   );
 }
-
-type LoginFormValue = {};
