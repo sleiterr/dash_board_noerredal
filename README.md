@@ -177,7 +177,6 @@ Project Link: [https://github.com/sleiterr/dash_board_noerredal](https://github.
 - [Schedule-X docs](https://schedule-x.dev/)
 - [Supabase docs](https://supabase.com/docs)
 - [shadcn/ui](https://ui.shadcn.com/)
-- [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 - [Img Shields](https://shields.io)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
