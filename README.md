@@ -61,6 +61,8 @@ Key highlights:
 - **Authentication** — Email/password login via Supabase Auth with server-side session handling and protected routes using Next.js middleware.
 - **Real-time data** — Events and employees are persisted in Supabase and loaded via server actions on every route visit.
 
+> **Figma Design** — [View the design file](https://www.figma.com/proto/B3qUBQQagWosQrCS6vFGMe/Team-Management-Admin-Dashboard?node-id=232-3324&t=DG20VoMZFgioZcuW-1)
+
 Built as a hands-on project after finishing a frontend course — the goal was to practice working with a non-trivial third-party library (Schedule-X), React Context, form validation, Supabase integration, and component composition in a realistic dashboard setting.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -124,6 +126,13 @@ Built as a hands-on project after finishing a frontend course — the goal was t
 - **Calendar** — Switch between Day, Week, and Month views. Create events with a title, date range, start/end time, and an assigned employee. Quick-add via the `+` button on any month grid day.
 - **Team** — Add, edit, and remove team members. Each member has a role, location, contact info, and a unique calendar color. Toggle employee visibility directly from the calendar sidebar.
 
+### Demo credentials
+
+| Field    | Value                    |
+| -------- | ------------------------ |
+| Email    | `admin@teamcalendar.dev` |
+| Password | `Portfolio2026!`         |
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
@@ -157,7 +166,7 @@ Personal learning project — no license specified.
 
 ## Contact
 
-Project Link: [https://github.com/your_username/dash_board_noerredal](https://github.com/your_username/dash_board_noerredal)
+Project Link: [https://github.com/sleiterr/dash_board_noerredal](https://github.com/sleiterr/dash_board_noerredal)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

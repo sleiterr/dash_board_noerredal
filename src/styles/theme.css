@@ -96,4 +96,8 @@
     --color-label: #2D4A35;
     --color-login-primary: #2D4A35;
     --color-login-primary-hover: #24392A;
+
+    /*? My Calendar — personal task checklist */
+
+    --color-calendar-subtitle: #A89B7A;
 }
