@@ -8,7 +8,7 @@ const DashboardWidgets = async () => {
   const employees = await getEmployees();
 
   return (
-    <aside className="w-64 shrink-0 flex flex-col items-center gap-4 p-4">
+    <aside className="w-64 shrink-0 flex flex-col items-center gap-4 p-4 h-full overflow-y-auto">
       <SidebarCalendar />
       <TeamWidget employees={employees} />
       <MyCalendarWidget />

@@ -99,5 +99,15 @@
 
     /*? My Calendar — personal task checklist */
 
+    --color-calendar-active: #2D4A35;
     --color-calendar-subtitle: #A89B7A;
+    --color-widget-msg: #C5BCED;
+
+    --color-done: #C5BCED;
+    --color-done-hover: #8B6F5E;
+    --color-progress-border: #EDE8D5;
+
+    --color-progress-nr: #8B6F5E;
+    --color-progress-bar: #EDE8D5;
+    --color-active-progress: #7CA982;
 }
