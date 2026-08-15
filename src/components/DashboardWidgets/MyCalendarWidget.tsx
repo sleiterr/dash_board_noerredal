@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import CtaCalendar from "./CtaCalendar";
+import ModalNewTask from "./ModalNewTask";
 
 import {
   getPersonalTasks,
@@ -15,6 +15,7 @@ import ProgressTaskBar from "./ProgressTaskBar";
 import PersonalTaskList from "./PersonalTaskList";
 
 const MyCalendarWidget = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState<PersonalTask[]>([]);
 
   // useEffect to fetch personal tasks when the component mounts
@@ -45,7 +46,7 @@ const MyCalendarWidget = () => {
             Personal tasks
           </p>
         </div>
-        <CtaCalendar />
+        <CtaCalendar setIsOpen={setIsOpen} />
       </div>
       {tasks.length === 0 && (
         <p className="font-normal text-[10px] text-widget-msg text-center py-2">
@@ -59,6 +60,14 @@ const MyCalendarWidget = () => {
         onDelete={handleDelete}
       />
       <ProgressTaskBar tasks={tasks} />
+      {isOpen && (
+        <ModalNewTask
+          onClose={() => setIsOpen(false)}
+          onSuccess={() =>
+            getPersonalTasks().then(setTasks).catch(console.error)
+          }
+        />
+      )}
     </div>
   );
 };

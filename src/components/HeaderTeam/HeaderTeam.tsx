@@ -10,7 +10,7 @@ import { Employee } from "@/lib/types";
 import ProgreesBar from "./ProgreesBar";
 
 const HeaderTeam = ({ employees }: { employees: Employee[] }) => {
-  const [islOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const today = new Date();
   const counts = getEmployeeStatusCounts(employees);
 
@@ -35,7 +35,7 @@ const HeaderTeam = ({ employees }: { employees: Employee[] }) => {
           </div>
           <ProgreesBar counts={counts} total={employees.length} />
         </div>
-        {islOpen && <ModalAddPerson onClose={() => setIsOpen(false)} />}
+        {isOpen && <ModalAddPerson onClose={() => setIsOpen(false)} />}
       </header>
     </>
   );

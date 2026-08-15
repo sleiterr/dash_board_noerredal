@@ -110,4 +110,8 @@
     --color-progress-nr: #8B6F5E;
     --color-progress-bar: #EDE8D5;
     --color-active-progress: #7CA982;
+
+    --color-check-bg: #EDE8D5;
+    --color-check-icon: #7CA982;
+    --color-border-task: #EDE8D5;
 }

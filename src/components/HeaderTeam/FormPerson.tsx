@@ -45,7 +45,7 @@ export function FormPerson({ onClose, form }: FormPersonProps) {
   }
 
   return (
-    <div>
+    <>
       <CardContent>
         <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-rows-2 gap-4 mb-4">
@@ -105,7 +105,7 @@ export function FormPerson({ onClose, form }: FormPersonProps) {
           submitIcon={<UserPlus className="h-4 w-4 text-white" />}
         />
       </div>
-    </div>
+    </>
   );
 }
 

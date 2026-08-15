@@ -64,7 +64,7 @@ const FormInput = ({
 export default FormInput;
 
 type FormInputProps = {
-  label?: string;
+  label?: React.ReactNode;
   name: string;
   placeholder?: string;
   type?: string;

@@ -1,10 +1,11 @@
-import { Plus, Check, X } from "lucide-react";
+import { Modal } from "@/components/Modal/Modal";
+import { Plus } from "lucide-react";
 
-const CtaCalendar = () => {
+const CtaCalendar = ({ setIsOpen }: CtaCalendarProps) => {
   return (
     <>
       <button
-        onClick={() => {}}
+        onClick={() => setIsOpen(true)}
         className="w-6 h-6 bg-cta-link hover:bg-cta-modal-hover rounded-full flex items-center justify-center text-white transition-colors shadow-sm cursor-pointer"
       >
         <Plus className="w-3.5 h-3.5" />
@@ -14,3 +15,7 @@ const CtaCalendar = () => {
 };
 
 export default CtaCalendar;
+
+type CtaCalendarProps = {
+  setIsOpen: (value: boolean) => void;
+};
