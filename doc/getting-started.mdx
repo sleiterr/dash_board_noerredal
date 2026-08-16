@@ -1,0 +1,117 @@
+---
+title: Getting Started
+description: Local setup, environment variables and development commands
+---
+
+## Prerequisites
+
+- **Node.js** 18 or higher
+- **npm** (bundled with Node.js)
+- A **[Supabase](https://supabase.com)** project with the required tables
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/sleiterr/dash_board_noerredal.git
+cd dash_board_noerredal
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env.local` file in the project root:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+JWT_SECRET=your_jwt_secret_key
+```
+
+| Variable                        | Where to find it                                                |
+| ------------------------------- | --------------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase dashboard → Project Settings → API → Project URL       |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase dashboard → Project Settings → API → anon / public key |
+| `JWT_SECRET`                    | Any secure random string — used to sign login tokens            |
+
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser. The app redirects to `/login` if unauthenticated.
+
+## Available Scripts
+
+```bash
+npm run dev      # Start local dev server (Next.js with Turbopack)
+npm run build    # Production build
+npm run start    # Start the production server after build
+npm run lint     # Run ESLint
+```
+
+## Supabase Schema
+
+The app expects the following tables in your Supabase project:
+
+### `employees`
+
+| Column     | Type   | Notes                                              |
+| ---------- | ------ | -------------------------------------------------- |
+| `id`       | `uuid` | Primary key                                        |
+| `name`     | `text` | Full name                                          |
+| `role`     | `text` | Job title                                          |
+| `location` | `text` | Office / remote location                           |
+| `phone`    | `text` | Contact number                                     |
+| `color`    | `text` | Hex color for calendar events                      |
+| `status`   | `text` | `working` \| `remote` \| `day_off` \| `sick_leave` |
+| `email`    | `text` | Contact email                                      |
+
+### `tasks` (calendar events)
+
+| Column        | Type   | Notes                        |
+| ------------- | ------ | ---------------------------- |
+| `id`          | `uuid` | Primary key                  |
+| `title`       | `text` | Event title                  |
+| `start`       | `text` | ISO datetime string          |
+| `end`         | `text` | ISO datetime string          |
+| `employee_id` | `uuid` | Foreign key → `employees.id` |
+| `color`       | `text` | Inherited from employee      |
+
+### `personal_tasks`
+
+| Column       | Type      | Notes                                               |
+| ------------ | --------- | --------------------------------------------------- |
+| `id`         | `uuid`    | Primary key                                         |
+| `label`      | `text`    | Task name                                           |
+| `color`      | `text`    | `green` \| `purple` \| `blue` \| `orange` \| `rose` |
+| `done`       | `boolean` | Completion status                                   |
+| `user_email` | `text`    | Owner email                                         |
+
+## Demo Login
+
+If you want to try the deployed version without setting up Supabase:
+
+| Field    | Value                    |
+| -------- | ------------------------ |
+| Email    | `admin@teamcalendar.dev` |
+| Password | `Portfolio2026!`         |
+
+## Publishing Updated Docs
+
+1. Edit files in the `doc/` folder.
+2. Preview locally via [https://docs.page/preview](https://docs.page/preview).
+3. Push changes to the repository — docs.page picks them up automatically.
+
+## Related
+
+- [Project Overview](/project-overview)
+- [Project Structure](/project-structure)
+- [Components](/components)

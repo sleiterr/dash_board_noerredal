@@ -1,0 +1,68 @@
+---
+title: Project Overview
+description: Goals, key features and user flow
+---
+
+## Purpose
+
+TeamsDash is a hands-on portfolio project built after completing a frontend course. The goal was to practice working with a non-trivial third-party library (Schedule-X), React Context, server actions, form validation, Supabase integration, and component composition in a realistic dashboard setting.
+
+> **Figma design** — [View the design file](https://www.figma.com/proto/B3qUBQQagWosQrCS6vFGMe/Team-Management-Admin-Dashboard?node-id=232-3324&t=DG20VoMZFgioZcuW-1)
+
+## Key Features
+
+### Calendar
+
+- Custom toolbar with prev / next navigation, Today button, and Day / Week / Month view switcher — built from scratch, bypassing the default Schedule-X header entirely.
+- "New Event" modal with title, date range, start/end time picker, and employee assignment.
+- Quick-add `+` button directly on each day cell in month view.
+- Sidebar mini-calendar with dot indicators for days that have events.
+- Filter calendar view by employee via the team avatar strip.
+
+### Team Management
+
+- Add, edit, and delete team members.
+- Each member has: name, role, location, phone, and a unique calendar color.
+- Status badges (Working, Remote, Day off, Sick leave) with live counts.
+- Toggle employee visibility directly from the dashboard sidebar.
+
+### Authentication
+
+- Email / password login backed by Supabase.
+- JWT issued server-side, stored in an HTTP-only cookie (`jose` library).
+- Protected routes via Next.js middleware — unauthenticated requests redirect to `/login`.
+- Authenticated users visiting `/login` are redirected back to `/dashboard`.
+
+### Personal Tasks
+
+- Per-user task checklist widget on the dashboard.
+- Create tasks with a label and a color tag (green, purple, blue, orange, rose).
+- Toggle done / undone and delete tasks.
+- Progress bar shows completion ratio.
+- Task list refreshes immediately after creation without a page reload.
+
+## User Flow
+
+1. User lands on `/` — middleware redirects to `/dashboard` if authenticated, otherwise to `/login`.
+2. User logs in — JWT cookie is set, user is pushed to `/dashboard`.
+3. Dashboard loads — calendar, team widget, and personal task list are rendered.
+4. User navigates to `/dashboard/team` — full team accordion with add / edit / delete.
+5. User logs out — cookie is deleted, redirected to `/login`.
+
+## Roadmap
+
+| Status     | Item                                      |
+| ---------- | ----------------------------------------- |
+| ✅ Done    | Custom calendar toolbar                   |
+| ✅ Done    | New Event modal                           |
+| ✅ Done    | Team management (add / edit / delete)     |
+| ✅ Done    | Shared form components                    |
+| ✅ Done    | Event stats widget                        |
+| ✅ Done    | Supabase integration                      |
+| ✅ Done    | Employee–event linking                    |
+| ✅ Done    | Sidebar mini-calendar                     |
+| ✅ Done    | Authentication with protected routes      |
+| ✅ Done    | Quick-add on month grid cells             |
+| ✅ Done    | Personal task checklist with progress bar |
+| ⬜ Planned | Edit / delete events from calendar        |
+| ⬜ Planned | Dark mode                                 |

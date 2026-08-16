@@ -54,20 +54,15 @@ export function AppSidebar() {
               TeamsDash
             </p>
           )}
-          <button
-            onClick={() => {
-              setPinned((prev) => !prev);
-            }}
-          >
-            <PanelLeft
-              className={clsx(
-                "cursor-pointer",
-                open
-                  ? "text-secondary bg-icon-bg shadow-md rounded-full size-10 p-2"
-                  : "w-6 h-6 text-sidebar",
-              )}
-            />
-          </button>
+          {open && (
+            <button
+              onClick={() => {
+                setPinned((prev) => !prev);
+              }}
+            >
+              <PanelLeft className="cursor-pointer text-secondary bg-icon-bg shadow-md rounded-full size-10 p-2" />
+            </button>
+          )}
         </div>
       </SidebarHeader>
       <SidebarContent className="mt-4">

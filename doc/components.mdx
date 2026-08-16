@@ -1,0 +1,161 @@
+---
+title: Components
+description: UI component groups and their responsibilities
+---
+
+## Overview
+
+Components are grouped by feature area under `src/components/`. Shared primitives from shadcn/ui live in `src/components/ui/`.
+
+---
+
+## AppSidebar
+
+`src/components/AppSIdebar/`
+
+Collapsible sidebar that expands on hover and can be pinned open.
+
+| File                     | Role                                                                                |
+| ------------------------ | ----------------------------------------------------------------------------------- |
+| `app-sidebar.tsx`        | Root sidebar shell — uses `useSidebar()` context, hover expand/collapse, pin toggle |
+| `sidebar-menu-items.tsx` | Navigation links (Calendar, Team) with active state and collapsed icon mode         |
+| `DashboardWidgets.tsx`   | Renders the widget area inside the sidebar                                          |
+| `ProfileFooter.tsx`      | User avatar and logout button at the bottom of the sidebar                          |
+
+---
+
+## Calendar
+
+`src/components/Calendar/`
+
+Full calendar feature built on top of Schedule-X with entirely custom toolbar and event UI.
+
+| File                                | Role                                                         |
+| ----------------------------------- | ------------------------------------------------------------ |
+| `CalendarDashboard.tsx`             | Main calendar mount — initialises Schedule-X, passes plugins |
+| `CalendarProvider.tsx`              | React context provider for the calendar instance             |
+| `CalendarContext.tsx`               | Shared calendar context and hook                             |
+| `CalendarToolbar.tsx`               | Custom prev/next/Today controls and view switcher            |
+| `CalendarWeekdays.tsx`              | Day-name header row                                          |
+| `CalendarEventTile.tsx`             | Custom event tile rendered inside the grid                   |
+| `CalendarViewSwitcher.tsx` (Header) | Day / Week / Month toggle buttons                            |
+| `MonthGridDateCell.tsx`             | Day cell in month view with quick-add `+` button             |
+| `EventBtn.tsx`                      | Event click trigger                                          |
+| `sidebar-calendar.tsx`              | Mini-calendar in the sidebar with event dot indicators       |
+| `CustomEventModal.tsx`              | Full event detail / create modal                             |
+| `ConfirmEventDelete.tsx`            | Delete confirmation dialog                                   |
+
+---
+
+## Header
+
+`src/components/Header/`
+
+Calendar page top bar — stats, date picker, employee picker, and new event modal.
+
+| File                  | Role                                                    |
+| --------------------- | ------------------------------------------------------- |
+| `Header.tsx`          | Top bar layout — wraps all header controls              |
+| `EventStats.tsx`      | Today / this week event count badges                    |
+| `DatePicker.tsx`      | Jump-to-date calendar picker                            |
+| `EmployeePicker.tsx`  | Filter calendar by employee                             |
+| `TeamAvatarStrip.tsx` | Row of employee avatars for quick filter                |
+| `ModalNewEvent.tsx`   | "New Event" modal shell                                 |
+| `FormEvent.tsx`       | Event creation form (title, date range, time, employee) |
+| `FormDatePicker.tsx`  | Shared date input used inside forms                     |
+| `FormActions.tsx`     | Shared Cancel / Submit button pair for all modals       |
+
+---
+
+## HeaderTeam
+
+`src/components/HeaderTeam/`
+
+Team page header with the "Add Person" button and employee creation form.
+
+| File                     | Role                                                           |
+| ------------------------ | -------------------------------------------------------------- |
+| `HeaderTeam.tsx`         | Team page top bar — title, progress bar, add button            |
+| `ModalAddPerson.tsx`     | Modal shell for adding a new team member                       |
+| `FormPerson.tsx`         | Employee creation form                                         |
+| `FormInput.tsx`          | Shared labelled text input (supports `React.ReactNode` labels) |
+| `FormSelect.tsx`         | Shared select input                                            |
+| `FormColorPicker.tsx`    | Color swatch picker (used in event and task forms)             |
+| `AddPersonBtn.tsx`       | "Add Person" CTA button                                        |
+| `ProgreesBar.tsx`        | Team presence progress bar in the header                       |
+| `StatusSummaryChips.tsx` | Status count chips (Working, Remote, etc.)                     |
+
+---
+
+## DashboardWidgets
+
+`src/components/DashboardWidgets/`
+
+Dashboard right-column widgets.
+
+| File                       | Role                                                                |
+| -------------------------- | ------------------------------------------------------------------- |
+| `MyCalendarWidget.tsx`     | Personal task checklist widget — fetches tasks, manages local state |
+| `ModalNewTask.tsx`         | Modal for creating a new personal task                              |
+| `FormTask.tsx`             | Task creation form (label + color picker)                           |
+| `PersonalTaskList.tsx`     | Renders the list of tasks                                           |
+| `PersonalTaskItem.tsx`     | Single task row with done toggle and delete                         |
+| `ProgressTaskBar.tsx`      | Completion progress bar                                             |
+| `CtaCalendar.tsx`          | `+` button that opens the new-task modal                            |
+| `TeamWidget.tsx`           | Mini team presence overview widget                                  |
+| `EmployeeToggleList.tsx`   | Toggle employee visibility in the calendar                          |
+| `EmployeeNameLocation.tsx` | Name + location display in toggle list                              |
+| `EmployeeStatusBadge.tsx`  | Status badge for a single employee                                  |
+| `ActiveEmployeesBadge.tsx` | Total active count badge                                            |
+| `OtherCalendarWidget.tsx`  | Secondary calendar widget slot                                      |
+
+---
+
+## TeamAccordion
+
+`src/components/TeamAccordion/`
+
+Expandable employee list on the `/dashboard/team` page.
+
+| File                | Role                                            |
+| ------------------- | ----------------------------------------------- |
+| `ConfirmAction.tsx` | Generic confirm / cancel dialog used for delete |
+
+---
+
+## Login
+
+`src/components/Login/`
+
+Login page UI split into focused components.
+
+| File                | Role                                                            |
+| ------------------- | --------------------------------------------------------------- |
+| `LoginPage.tsx`     | Full page layout                                                |
+| `LoginForm.tsx`     | Form with react-hook-form + Zod validation, calls `loginAction` |
+| `LoginSubmit.tsx`   | Submit button with loading state                                |
+| `LoginBranding.tsx` | Left-panel branding illustration                                |
+| `LoginPitch.tsx`    | Marketing copy on the login page                                |
+| `PasswordInput.tsx` | Password field with show/hide toggle                            |
+
+---
+
+## Modal
+
+`src/components/Modal/`
+
+| File        | Role                                                       |
+| ----------- | ---------------------------------------------------------- |
+| `Modal.tsx` | Generic modal wrapper (backdrop + card) used by all modals |
+
+---
+
+## Shared Patterns
+
+**Form composition** — every modal follows the same pattern:
+
+1. `Modal.tsx` — backdrop and card shell
+2. `Form*.tsx` — react-hook-form + Zod-validated form body
+3. `FormActions.tsx` — Cancel / Submit buttons with `formId` binding
+
+**Server actions** — all data mutations live in `src/app/actions/`. Client components call them directly and use `onSuccess` callbacks to refresh local state without a page reload.

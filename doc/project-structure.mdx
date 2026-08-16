@@ -1,0 +1,87 @@
+---
+title: Project Structure
+description: Folder layout and file responsibilities
+---
+
+## Folder Tree
+
+```
+dash_board_noerredal/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx               # Root layout — fonts, providers
+│   │   ├── page.tsx                 # Root redirect → /dashboard
+│   │   ├── (auth)/
+│   │   │   ├── layout.tsx           # Auth layout (unauthenticated shell)
+│   │   │   └── login/               # /login page
+│   │   ├── actions/
+│   │   │   ├── auth.ts              # loginAction, logoutAction (JWT + cookie)
+│   │   │   ├── employees.ts         # CRUD server actions for employees
+│   │   │   ├── personalTasks.ts     # CRUD server actions for personal tasks
+│   │   │   └── tasks.ts             # CRUD server actions for calendar events
+│   │   └── dashboard/
+│   │       ├── layout.tsx           # Dashboard shell — sidebar + content area
+│   │       ├── page.tsx             # /dashboard — calendar + widgets
+│   │       └── team/                # /dashboard/team — team accordion
+│   ├── components/
+│   │   ├── AppSidebar/              # Collapsible sidebar with nav and profile
+│   │   ├── Button/                  # Shared CTA button
+│   │   ├── Calendar/                # Full calendar feature (Schedule-X wrapper)
+│   │   ├── DashboardWidgets/        # My Calendar widget + personal tasks
+│   │   ├── Header/                  # Calendar toolbar and event form modal
+│   │   ├── HeaderTeam/              # Team page header and add-person modal
+│   │   ├── Login/                   # Login page UI components
+│   │   ├── Modal/                   # Generic modal wrapper
+│   │   ├── TeamAccordion/           # Team member list with expand/collapse
+│   │   └── ui/                      # shadcn/ui primitives
+│   ├── hooks/
+│   │   ├── use-mobile.ts            # Breakpoint hook for responsive sidebar
+│   │   └── useEventStats.ts         # Derived counts for today/week events
+│   ├── lib/
+│   │   ├── eventColors.ts           # Event color palette mapping
+│   │   ├── statusColors.ts          # Employee status → color map
+│   │   ├── statusIcons.ts           # Employee status → icon map
+│   │   ├── types.ts                 # Shared TypeScript types (Employee, etc.)
+│   │   └── utils.ts                 # cn() helper (clsx + tailwind-merge)
+│   ├── styles/
+│   │   ├── globals.css              # Tailwind base + font imports
+│   │   ├── theme.css                # CSS custom properties (design tokens)
+│   │   ├── calendar.css             # Schedule-X overrides
+│   │   ├── accordion.css            # Accordion animation keyframes
+│   │   ├── fonts.css                # DM Sans font-face
+│   │   └── variables.css            # Root CSS variables
+│   ├── types/
+│   │   └── attendance.ts            # Attendance status enum/type
+│   └── utils/
+│       ├── formatEventTime.ts       # Event time display formatting
+│       ├── formatWeekRange.ts       # Week header label formatting
+│       ├── supabase.ts              # Supabase client (browser)
+│       └── api/                     # Direct Supabase data access functions
+├── middleware.ts                    # JWT auth guard + login redirect
+├── next.config.ts                   # Next.js config
+├── tailwind.config.ts               # (via postcss.config.mjs)
+├── tsconfig.json
+├── docs.json                        # docs.page config
+└── doc/                             # Documentation (this site)
+```
+
+## Key Files
+
+| File                      | Role                                                                                                                  |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `middleware.ts`           | Protects `/dashboard/**` — redirects to `/login` without valid JWT. Redirects authenticated users away from `/login`. |
+| `src/app/actions/auth.ts` | Issues and deletes the JWT cookie. Uses `jose` for signing/verifying.                                                 |
+| `src/utils/supabase.ts`   | Browser Supabase client — used by API utilities.                                                                      |
+| `src/utils/api/`          | Server-side data access: employees, events, personal tasks, auth verification.                                        |
+| `src/lib/utils.ts`        | `cn()` — merges Tailwind classes safely with `clsx` + `tailwind-merge`.                                               |
+| `src/styles/theme.css`    | All design tokens as CSS custom properties (`--color-*`, `--animate-*`).                                              |
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+JWT_SECRET=your_jwt_secret_key
+```

@@ -1,0 +1,50 @@
+---
+title: TeamsDash — Documentation
+description: Calendar & Team Manager built with Next.js 16, Supabase and Schedule-X
+---
+
+TeamsDash is a team and event management dashboard with a fully custom calendar UI, team attendance tracking, personal task management, and a Supabase-backed auth and data layer.
+
+## Contents
+
+- [Project Overview](/project-overview) — goals, features and user flow
+- [Project Structure](/project-structure) — folder layout and file responsibilities
+- [Components](/components) — UI component groups and their roles
+- [Getting Started](/getting-started) — setup, environment variables and local dev
+
+## Quick Start
+
+### Requirements
+
+- Node.js 18+
+- A [Supabase](https://supabase.com) project
+
+### Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Stack
+
+| Layer           | Technology                     |
+| --------------- | ------------------------------ |
+| Framework       | Next.js 16.2 (App Router)      |
+| Language        | TypeScript 5                   |
+| Styling         | Tailwind CSS 4                 |
+| UI primitives   | shadcn/ui + Radix UI 1.6       |
+| Calendar engine | Schedule-X 3.7                 |
+| Backend / Auth  | Supabase 2.110                 |
+| Forms           | react-hook-form 7 + Zod 4      |
+| Auth tokens     | jose 6 (JWT, HTTP-only cookie) |
+| Toasts          | Sonner 2                       |
+| Icons           | Lucide React 1.21              |
+| Date utilities  | date-fns 4 + Temporal polyfill |
+
+## Demo credentials
+
+| Field    | Value                    |
+| -------- | ------------------------ |
+| Email    | `admin@teamcalendar.dev` |
+| Password | `Portfolio2026!`         |

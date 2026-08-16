@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
-import { House, Calendar, Users, Settings } from "lucide-react";
+import { Calendar, Users } from "lucide-react";
 
 const sidebarLinks: MenuLinks[] = [
   {
@@ -22,13 +22,6 @@ const sidebarLinks: MenuLinks[] = [
       "font-medium text-xl text-tertiary group-hove/sidebar::text-secondary transition-colors duration-300",
     icon: Users,
   },
-  {
-    title: "Settings",
-    href: "/settings",
-    classTitle:
-      "font-medium text-xl text-tertiary group-hover/sidebar:text-secondary transition-colors duration-300",
-    icon: Settings,
-  },
 ];
 
 const SidebarMenuItems = ({ open }: { open: boolean }) => {
@@ -40,11 +33,13 @@ const SidebarMenuItems = ({ open }: { open: boolean }) => {
           <SidebarMenuButton
             asChild
             className={cn(
-              "group/sidebar rounded-[14px] py-6 transition-colors",
-              open ? "px-4" : "px-0 justify-center",
+              "group/sidebar transition-colors",
+              open ? "rounded-[14px] py-6 px-4" : "px-0! justify-center",
               "hover:bg-sidebar-hover-link",
               pathname === item.href && "bg-sidebar-hover-link",
-              !open && pathname === item.href && "size-12 mx-auto rounded-full",
+              !open &&
+                pathname === item.href &&
+                "size-12! p-12! mx-auto rounded-full",
             )}
           >
             <Link

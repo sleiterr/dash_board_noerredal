@@ -1,0 +1,19 @@
+{
+  "name": "TeamsDash",
+  "description": "Calendar & Team Manager — Next.js 16 + Supabase",
+  "content": "doc",
+  "sidebar": [
+    {
+      "group": "Introduction",
+      "pages": ["index", "project-overview"]
+    },
+    {
+      "group": "Project",
+      "pages": ["project-structure", "components"]
+    },
+    {
+      "group": "Setup",
+      "pages": ["getting-started"]
+    }
+  ]
+}

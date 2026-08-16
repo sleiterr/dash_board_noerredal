@@ -1,7 +1,6 @@
 import SidebarCalendar from "@/components/Calendar/sidebar-calendar";
 import TeamWidget from "@/components/DashboardWidgets/TeamWidget";
 import MyCalendarWidget from "@/components/DashboardWidgets/MyCalendarWidget";
-import OtherCalendarWidget from "@/components/DashboardWidgets/OtherCalendarWidget";
 import { getEmployees } from "@/utils/api/employees";
 
 const DashboardWidgets = async () => {
@@ -12,7 +11,6 @@ const DashboardWidgets = async () => {
       <SidebarCalendar />
       <TeamWidget employees={employees} />
       <MyCalendarWidget />
-      <OtherCalendarWidget />
     </aside>
   );
 };

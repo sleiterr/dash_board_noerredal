@@ -223,9 +223,6 @@ Project Link: [https://github.com/sleiterr/dash_board_noerredal](https://github.
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#project-structure">Project Structure</a></li>
-    <li><a href="#architecture-notes">Architecture Notes</a></li>
-    <li><a href="#known-quirks--fixes">Known Quirks & Fixes</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
   </ol>
@@ -288,52 +285,13 @@ This project was built as a hands-on learning exercise after finishing a fronten
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- PROJECT STRUCTURE -->
+<!-- DOCUMENTATION -->
 
-## Project Structure
+## Documentation
 
-```
-src/
-  app/
-    dashboard/
-      page.tsx              # Calendar dashboard route
-      team/
-        page.tsx             # Team attendance route
-      layout.tsx
-      page.tsx
-  components/
-    Calendar/
-      CalendarContext.tsx    # React Context exposing the Schedule-X `calendar` instance
-      CalendarProvider.tsx   # Wraps useCalendarApp(), provides events/views/plugins
-      CalendarDashboard.tsx  # Renders the calendar grid + custom weekdays row
-      CalendarToolbar.tsx    # Custom prev/next, Today, month/year title
-      CalendarWeekdays.tsx   # Mon–Sun row, only shown in month-grid view
-      sidebar-calendar.tsx.  #
-    Header/
-      CalendarViewSwitcher.tsx   # Daily / Weekly / Monthly toggle
-      ModalNewEvent.tsx          # "New Event" modal
-      FormEvent.tsx               # New event form (title, date range, start/end time)
-      DatePicker.tsx              # shadcn Calendar + Popover, range mode
-      FormDatePicker.tsx          # react-hook-form wrapper around DatePicker
-      FormActions.tsx             # Shared Cancel / Submit button pair
-      EventStats.tsx               # "X today / Y this week" widget
-      Header.tsx
-      ModalNewEvent.tsx
-    HeaderTeam/
-      HeaderTeam.tsx          # Team page header (date, Add Person button)
-      AddPersonBtn.tsx
-      ModalAddPerson.tsx      # "New Person" modal, owns the form state + live preview
-      FormPerson.tsx           # Person form (name, role, location, phone, email, color)
-      FormInput.tsx             # Reusable react-hook-form text/email/time input
-      FormSelect.tsx             # Reusable react-hook-form select
-      FormColorPicker.tsx        # Calendar-color swatch picker
-    Modal/
-      Modal.tsx               # Headless UI Dialog wrapper used by both modals
-  hooks/
-    useEventStats.ts          # Computes "today" / "this week" event counts from the calendar
-  lib/
-    eventColors.ts            # EVENT_COLOR_DATA, COLOR_LABELS, getInitials()
-```
+Full project documentation — folder structure, components and setup guide — is available at the docs site.
+
+> **docs.page** — [View Documentation](https://docs.page/sleiterr/dash_board_noerredal)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
