@@ -149,7 +149,7 @@ Built as a hands-on project after finishing a frontend course — the goal was t
 - [x] Sidebar mini-calendar with event dot indicators
 - [x] Authentication — email/password login with Supabase Auth and protected routes
 - [x] Quick-add `+` button on month grid day cells
-- [ ] Edit / delete flows for events directly from the calendar
+- [x] Edit / delete flows for events directly from the calendar
 - [ ] Dark mode
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
