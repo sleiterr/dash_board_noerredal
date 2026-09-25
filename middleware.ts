@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { jwtVerify } from "jose";
-
-// This middleware function checks for a valid JWT token in the cookies of incoming requests.
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
+import { verifySessionToken } from "@/utils/auth/jwt";
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
@@ -13,7 +10,7 @@ export async function middleware(request: NextRequest) {
   if (pathname === "/login") {
     if (token) {
       try {
-        await jwtVerify(token, JWT_SECRET);
+        await verifySessionToken(token);
         return NextResponse.redirect(new URL("/dashboard", request.url));
       } catch {
         return NextResponse.next();
@@ -27,7 +24,7 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    await jwtVerify(token, JWT_SECRET);
+    await verifySessionToken(token);
     return NextResponse.next();
   } catch {
     return NextResponse.redirect(new URL("/login", request.url));

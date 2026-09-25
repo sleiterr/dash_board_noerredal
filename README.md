@@ -58,7 +58,7 @@ Key highlights:
 
 - **Custom calendar** — Schedule-X powers the grid, but the toolbar, view switcher, and event modal are built from scratch to match a Figma design system, bypassing the default Schedule-X header entirely.
 - **Team management** — Create and manage team members with roles, locations, contact info, and personal calendar colors. Filter the calendar by employee.
-- **Authentication** — Email/password login via Supabase Auth with server-side session handling and protected routes using Next.js middleware.
+- **Authentication** — Supabase verifies the password, then the server issues a signed JWT in an HTTP-only cookie. Next.js middleware validates the token, issuer, audience, algorithm, and expiration before allowing dashboard access.
 - **Real-time data** — Events and employees are persisted in Supabase and loaded via server actions on every route visit.
 
 > **Figma Design** — [View the design file](https://www.figma.com/proto/B3qUBQQagWosQrCS6vFGMe/Team-Management-Admin-Dashboard?node-id=232-3324&t=DG20VoMZFgioZcuW-1)
@@ -110,6 +110,7 @@ Built as a hands-on project after finishing a frontend course — the goal was t
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   JWT_SECRET=your_long_random_secret
    ```
 4. Run the development server
    ```sh
